@@ -509,6 +509,97 @@
 </footer>
 
 <script>
+  /* ── Firebase Email Action Handler ── */
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get('mode');
+    const oobCode = params.get('oobCode');
+    const apiKey = params.get('apiKey');
+
+    function showActionPage(bodyHtml) {
+      document.body.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(150deg,#F5EAE0 0%,#EDD9C6 60%,#F2E5D8 100%);margin:0';
+      const card = document.createElement('div');
+      card.style.cssText = 'text-align:center;padding:48px 32px;max-width:420px;width:90%;background:rgba(255,255,255,0.7);border-radius:28px;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(58,85,50,0.1)';
+      card.innerHTML = `<p style="font-family:'Playfair Display',serif;font-style:italic;font-size:28px;color:#3A5532;margin-bottom:20px">Presence</p>` + bodyHtml;
+      document.body.innerHTML = '';
+      document.body.appendChild(card);
+    }
+
+    if (mode === 'verifyEmail' && oobCode && apiKey) {
+      showActionPage(`<p id="action-msg" style="font-size:16px;color:#7A7A70;font-weight:300;line-height:1.7">Verifying your email…</p>`);
+
+      fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${encodeURIComponent(apiKey)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ oobCode })
+      })
+      .then(r => r.json())
+      .then(data => {
+        const msg = document.getElementById('action-msg');
+        if (data.error) {
+          msg.innerHTML = `<span style="color:#c0392b">Verification failed: ${data.error.message.replace(/_/g,' ').toLowerCase()}</span><br><br><a href="/" style="color:#3A5532;font-weight:500">Return to Presence</a>`;
+        } else {
+          msg.innerHTML = `<span style="font-size:36px">✓</span><br><br><strong style="color:#3A5532;font-size:18px;font-family:'Playfair Display',serif;font-style:italic">Email verified!</strong><br><br><span style="font-size:14px;color:#7A7A70">You can now sign in to Presence.</span>`;
+        }
+      })
+      .catch(() => {
+        document.getElementById('action-msg').innerHTML = `Something went wrong. Please try again or <a href="/" style="color:#3A5532">return home</a>.`;
+      });
+
+      return;
+    }
+
+    if (mode === 'resetPassword' && oobCode && apiKey) {
+      showActionPage(`
+        <p style="font-size:16px;color:#7A7A70;font-weight:300;line-height:1.7;margin-bottom:24px">Enter your new password</p>
+        <input id="pw1" type="password" placeholder="New password" style="width:100%;padding:12px 16px;border-radius:100px;border:1.5px solid rgba(58,85,50,0.2);font-size:14px;font-family:inherit;outline:none;margin-bottom:10px;box-sizing:border-box;background:rgba(255,255,255,0.8)">
+        <input id="pw2" type="password" placeholder="Confirm password" style="width:100%;padding:12px 16px;border-radius:100px;border:1.5px solid rgba(58,85,50,0.2);font-size:14px;font-family:inherit;outline:none;margin-bottom:18px;box-sizing:border-box;background:rgba(255,255,255,0.8)">
+        <button id="reset-btn" style="width:100%;padding:13px;border-radius:100px;border:none;background:#3A5532;color:white;font-size:15px;font-family:'Playfair Display',serif;font-style:italic;cursor:pointer">Reset Password</button>
+        <p id="action-msg" style="margin-top:14px;font-size:14px;color:#c0392b;min-height:20px"></p>
+      `);
+
+      document.getElementById('reset-btn').addEventListener('click', function() {
+        const pw1 = document.getElementById('pw1').value;
+        const pw2 = document.getElementById('pw2').value;
+        const msg = document.getElementById('action-msg');
+
+        if (pw1.length < 6) { msg.textContent = 'Password must be at least 6 characters.'; return; }
+        if (pw1 !== pw2)    { msg.textContent = 'Passwords do not match.'; return; }
+
+        this.textContent = 'Resetting…';
+        this.disabled = true;
+        msg.textContent = '';
+
+        fetch(`https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=${encodeURIComponent(apiKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ oobCode, newPassword: pw1 })
+        })
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) {
+            msg.textContent = data.error.message.replace(/_/g, ' ').toLowerCase();
+            document.getElementById('reset-btn').textContent = 'Reset Password';
+            document.getElementById('reset-btn').disabled = false;
+          } else {
+            document.querySelector('input#pw1').remove();
+            document.querySelector('input#pw2').remove();
+            document.getElementById('reset-btn').remove();
+            msg.style.color = '#3A5532';
+            msg.innerHTML = `<span style="font-size:36px">✓</span><br><br><strong style="font-size:18px;font-family:'Playfair Display',serif;font-style:italic">Password reset!</strong><br><br><span style="color:#7A7A70">You can now sign in to Presence with your new password.</span>`;
+          }
+        })
+        .catch(() => {
+          msg.textContent = 'Something went wrong. Please try again.';
+          document.getElementById('reset-btn').textContent = 'Reset Password';
+          document.getElementById('reset-btn').disabled = false;
+        });
+      });
+
+      return;
+    }
+  })();
+
   /* ── Typewriter ── */
   const phrases = ["I am cooking", "I am on a walk", "I am with my baby", "I am just breathing"];
   let pi = 0, ci = 0, deleting = false;
