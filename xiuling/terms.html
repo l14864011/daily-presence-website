@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use — Daily Presence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sage:       #B4C0AA;
+            --cream:      #F4F0E8;
+            --text-green: #4A5740;
+            --text-body:  #5C6852;
+            --text-muted: #7A8870;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-green);
+        }
+
+        .page-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 40px 100px;
+        }
+
+        .page-label {
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text-muted); margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500; font-size: clamp(28px, 4vw, 40px);
+            color: var(--text-green); margin-bottom: 8px; line-height: 1.2;
+        }
+
+        .page-updated {
+            font-size: 13px; color: var(--text-muted); font-weight: 300;
+            margin-bottom: 56px;
+        }
+
+        .section {
+            margin-bottom: 44px;
+        }
+
+        .section h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 500;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--text-green); margin-bottom: 14px;
+        }
+
+        .section p {
+            font-size: 15px; color: var(--text-body);
+            font-weight: 300; line-height: 1.85;
+            margin-bottom: 12px;
+        }
+        .section p:last-child { margin-bottom: 0; }
+
+        .section ol {
+            list-style: none; padding: 0;
+            display: flex; flex-direction: column; gap: 8px;
+            counter-reset: ol-counter;
+            margin-bottom: 12px;
+        }
+        .section ol li {
+            font-size: 15px; color: var(--text-body);
+            font-weight: 300; line-height: 1.7;
+            padding-left: 24px; position: relative;
+            counter-increment: ol-counter;
+        }
+        .section ol li::before {
+            content: counter(ol-counter) '.';
+            position: absolute; left: 0;
+            color: var(--text-muted); font-size: 13px;
+        }
+
+        .section ul {
+            list-style: none; padding: 0;
+            display: flex; flex-direction: column; gap: 8px;
+            margin-bottom: 12px;
+        }
+        .section ul li {
+            font-size: 15px; color: var(--text-body);
+            font-weight: 300; line-height: 1.7;
+            padding-left: 18px; position: relative;
+        }
+        .section ul li::before {
+            content: '–';
+            position: absolute; left: 0;
+            color: var(--text-muted);
+        }
+
+        .section a {
+            color: var(--text-green);
+            text-underline-offset: 3px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(74,87,64,0.12);
+            margin: 48px 0;
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────────── */
+        footer {
+            background: var(--cream);
+            border-top: 1px solid rgba(74,87,64,0.12);
+            padding: 48px 80px 36px;
+        }
+        .footer-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px; margin-bottom: 40px;
+            text-align: center;
+        }
+        .footer-col-title {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-green); letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .footer-col-body {
+            font-size: 14px; color: var(--text-body);
+            font-weight: 300; line-height: 1.8;
+        }
+        .footer-col-body a {
+            color: var(--text-body); text-decoration: none;
+            display: block; transition: color 0.2s;
+        }
+        .footer-col-body a:hover { color: var(--text-green); }
+        .footer-socials {
+            display: flex; gap: 10px;
+            justify-content: center; align-items: center;
+            margin-top: 4px;
+        }
+        .social-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            overflow: hidden; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.2s; flex-shrink: 0;
+        }
+        .social-icon:hover { opacity: 0.75; }
+        .social-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .footer-bottom {
+            border-top: 1px solid rgba(74,87,64,0.1);
+            padding-top: 24px; text-align: center;
+        }
+        .footer-bottom p {
+            font-size: 13px; color: var(--text-muted); font-weight: 300;
+        }
+        .footer-bottom a {
+            color: var(--text-muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom a:hover { color: var(--text-green); }
+        .footer-sep { margin: 0 6px; opacity: 0.5; }
+
+        @media (max-width: 860px) {
+            footer { padding: 40px 24px 28px; }
+            .footer-cols { grid-template-columns: 1fr; gap: 28px; }
+        }
+        @media (max-width: 540px) {
+            .page-wrap { padding: 52px 24px 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrap">
+    <p class="page-label">Daily Presence · Xiuling Liu, LSW</p>
+    <h1 class="page-title">Terms of Use</h1>
+    <p class="page-updated">Last Updated: March 2026</p>
+
+    <div class="section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing or using this website, submitting a consultation inquiry, or engaging with any content provided by Daily Presence ("we," "us," or "our"), you agree to be bound by these Terms of Use.</p>
+        <p>If you do not agree, please discontinue use of this website.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>2. Informational Purposes Only</h2>
+        <p>The content on this website — including written material, guided meditations, educational content, and general wellness information — is provided for educational and informational purposes only.</p>
+        <p>Nothing on this website should be interpreted as:</p>
+        <ul>
+            <li>Medical or mental health advice</li>
+            <li>Diagnosis</li>
+            <li>Psychotherapy</li>
+            <li>A therapeutic relationship</li>
+        </ul>
+        <p>A therapeutic relationship is established only after a formal consultation, acceptance as a client, and signing required clinical documents.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>3. No Crisis Services</h2>
+        <p>This website is not monitored 24/7 and should not be used for emergency or crisis situations.</p>
+        <p>If you are in crisis or need immediate support, please call or text <strong>988</strong>, contact local emergency services, or go to the nearest emergency room.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>4. Use of the Consultation Inquiry Form</h2>
+        <p>When you submit the contact or consultation inquiry form, you agree that:</p>
+        <ul>
+            <li>You are providing accurate information to the best of your knowledge</li>
+            <li>You understand that the form is not HIPAA-compliant</li>
+            <li>You will not submit information that requires emergency response</li>
+            <li>Submission of the form does not create a therapist–client relationship</li>
+        </ul>
+        <p>Your submission will be reviewed to determine fit for services, but services are not guaranteed.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>5. No Therapist–Client Relationship Created by Website Use</h2>
+        <p>Viewing this website, submitting a form, or sending an email does not create a therapeutic relationship.</p>
+        <p>A therapist–client relationship begins only after:</p>
+        <ol>
+            <li>A consultation call</li>
+            <li>Consent to treatment</li>
+            <li>Agreement to policies provided within formal intake documents</li>
+        </ol>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>6. Intellectual Property</h2>
+        <p>All content on this website — including text, images, branding, design, audio, guided meditations, and written materials — is the property of Daily Presence unless otherwise stated.</p>
+        <p>You may not:</p>
+        <ul>
+            <li>Copy, reproduce, distribute, modify, or republish any content without express written permission</li>
+        </ul>
+        <p>You may print or save content for personal use only.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>7. User Responsibilities</h2>
+        <p>You agree not to use this website to:</p>
+        <ul>
+            <li>Submit harmful, threatening, or inappropriate content</li>
+            <li>Attempt to breach security or access unauthorized information</li>
+            <li>Use automated scraping tools</li>
+            <li>Harass, impersonate, or violate the privacy of others</li>
+        </ul>
+        <p>You also agree not to misuse contact information for spam or unsolicited communication.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>8. External Links</h2>
+        <p>This website may include links to third-party websites or platforms. We do not control and are not responsible for:</p>
+        <ul>
+            <li>The content of external websites</li>
+            <li>Their privacy practices</li>
+            <li>Their accuracy or reliability</li>
+        </ul>
+        <p>Visiting external links is at your own discretion.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>9. Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, Daily Presence and Xiuling Liu, LSW, shall not be liable for:</p>
+        <ul>
+            <li>Any damages arising from use or inability to use this website</li>
+            <li>Delays, errors, or interruptions in site functionality</li>
+            <li>Use of educational or mindfulness content</li>
+            <li>Loss of data, profits, or personal information</li>
+        </ul>
+        <p>Website use is at your own risk.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>10. No Guarantee of Results</h2>
+        <p>While therapeutic services offered may be effective for many individuals, no specific outcomes are guaranteed. Website content — including meditations and educational material — does not promise or guarantee:</p>
+        <ul>
+            <li>Symptom improvement</li>
+            <li>Emotional healing</li>
+            <li>Mental health outcomes</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>11. Age Restrictions</h2>
+        <p>This website is intended for individuals 18 years or older. Minors must not submit form information without parental or guardian consent.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>12. Geographic Limitations</h2>
+        <p>Psychotherapy services provided by Xiuling Liu, LSW are available only to clients physically located in Illinois.</p>
+        <p>Mindfulness and educational offerings may be available more broadly but do not constitute therapy.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>13. Privacy</h2>
+        <p>Your use of this website is also governed by our <a href="privacy.html">Privacy Policy</a>, which explains how information is collected, stored, and protected.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>14. Changes to Terms</h2>
+        <p>We may update these Terms of Use at any time. Any updates will be posted on this page with an updated "Last Updated" date. Continued use of the website means you accept the updated terms.</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-cols">
+        <div>
+            <div class="footer-col-title">Location</div>
+            <div class="footer-col-body">Chicago, IL</div>
+        </div>
+        <div>
+            <div class="footer-col-title">Social</div>
+            <div class="footer-socials">
+                <a href="https://www.tiktok.com/@xiuling.liu?_r=1&_t=ZT-91Ht7Syxpde" target="_blank" rel="noopener" class="social-icon" title="TikTok">
+                    <img src="assets/tiktok.png" alt="TikTok">
+                </a>
+                <a href="https://www.youtube.com/@beherenow_everymoment" target="_blank" rel="noopener" class="social-icon" title="YouTube">
+                    <img src="assets/youtube.webp" alt="YouTube">
+                </a>
+                <a href="https://www.linkedin.com/in/xiuling-liu-lsw-2570b851" target="_blank" rel="noopener" class="social-icon" title="LinkedIn">
+                    <img src="assets/linkedin.webp" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-col-title">Contact</div>
+            <div class="footer-col-body">
+                <a href="consultation_request.html">Consult Inquiry Form</a>
+                <a href="mailto:xiulingliu0223@gmail.com">xiulingliu0223@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            © 2026 Daily Presence
+            <span class="footer-sep">·</span>
+            Xiuling Liu, LSW
+            <span class="footer-sep">·</span>
+            <a href="privacy.html">Privacy</a>
+            <span class="footer-sep">·</span>
+            <a href="terms.html">Terms</a>
+            <span class="footer-sep">·</span>
+            <a href="presence-privacy.html">App</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Daily Presence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sage:       #B4C0AA;
+            --cream:      #F4F0E8;
+            --text-green: #4A5740;
+            --text-body:  #5C6852;
+            --text-muted: #7A8870;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-green);
+        }
+
+        .page-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 40px 100px;
+        }
+
+        .page-label {
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text-muted); margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500; font-size: clamp(28px, 4vw, 40px);
+            color: var(--text-green); margin-bottom: 8px; line-height: 1.2;
+        }
+
+        .page-updated {
+            font-size: 13px; color: var(--text-muted); font-weight: 300;
+            margin-bottom: 56px;
+        }
+
+        .section {
+            margin-bottom: 44px;
+        }
+
+        .section h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 500;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--text-green); margin-bottom: 14px;
+        }
+
+        .section p {
+            font-size: 15px; color: var(--text-body);
+            font-weight: 300; line-height: 1.85;
+            margin-bottom: 12px;
+        }
+        .section p:last-child { margin-bottom: 0; }
+
+        .section ul {
+            list-style: none; padding: 0;
+            display: flex; flex-direction: column; gap: 8px;
+            margin-bottom: 12px;
+        }
+        .section ul li {
+            font-size: 15px; color: var(--text-body);
+            font-weight: 300; line-height: 1.7;
+            padding-left: 18px; position: relative;
+        }
+        .section ul li::before {
+            content: '–';
+            position: absolute; left: 0;
+            color: var(--text-muted);
+        }
+
+        .section a {
+            color: var(--text-green);
+            text-underline-offset: 3px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(74,87,64,0.12);
+            margin: 48px 0;
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────────── */
+        footer {
+            background: var(--cream);
+            border-top: 1px solid rgba(74,87,64,0.12);
+            padding: 48px 80px 36px;
+        }
+        .footer-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px; margin-bottom: 40px;
+            text-align: center;
+        }
+        .footer-col-title {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-green); letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .footer-col-body {
+            font-size: 14px; color: var(--text-body);
+            font-weight: 300; line-height: 1.8;
+        }
+        .footer-col-body a {
+            color: var(--text-body); text-decoration: none;
+            display: block; transition: color 0.2s;
+        }
+        .footer-col-body a:hover { color: var(--text-green); }
+        .footer-socials {
+            display: flex; gap: 10px;
+            justify-content: center; align-items: center;
+            margin-top: 4px;
+        }
+        .social-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            overflow: hidden; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.2s; flex-shrink: 0;
+        }
+        .social-icon:hover { opacity: 0.75; }
+        .social-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .footer-bottom {
+            border-top: 1px solid rgba(74,87,64,0.1);
+            padding-top: 24px; text-align: center;
+        }
+        .footer-bottom p {
+            font-size: 13px; color: var(--text-muted); font-weight: 300;
+        }
+        .footer-bottom a {
+            color: var(--text-muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom a:hover { color: var(--text-green); }
+        .footer-sep { margin: 0 6px; opacity: 0.5; }
+
+        @media (max-width: 860px) {
+            footer { padding: 40px 24px 28px; }
+            .footer-cols { grid-template-columns: 1fr; gap: 28px; }
+        }
+        @media (max-width: 540px) {
+            .page-wrap { padding: 52px 24px 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrap">
+    <p class="page-label">Daily Presence · Xiuling Liu, LSW</p>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-updated">Last Updated: March 2026</p>
+
+    <div class="section">
+        <h2>1. Introduction</h2>
+        <p>Daily Presence ("we," "us," or "our") is committed to protecting the privacy of individuals who visit our website and submit inquiries for psychotherapy, mindfulness, or consultation services. This Privacy Policy explains what information we collect, how we use it, how we store it, and your rights regarding your personal information.</p>
+        <p>By using this website or submitting a form, you consent to the practices described in this Privacy Policy.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>2. Information We Collect</h2>
+        <p>When you submit the Consultation Inquiry Form, we collect the following:</p>
+        <p><strong>Personal Information</strong></p>
+        <ul>
+            <li>First Name</li>
+            <li>Last Name</li>
+            <li>Email Address</li>
+            <li>Phone Number</li>
+        </ul>
+        <p><strong>Sensitive Information</strong></p>
+        <ul>
+            <li>Information you choose to share about your background, concerns, or therapy needs ("therapy history" or "clinical background").</li>
+        </ul>
+        <p><strong>Automatically Collected Data</strong> (Website Analytics — if enabled)</p>
+        <ul>
+            <li>IP Address</li>
+            <li>Browser type</li>
+            <li>Pages visited</li>
+            <li>Basic traffic analytics (if you have Google Analytics enabled)</li>
+        </ul>
+        <p>We do not knowingly collect information from individuals under 18 years old through this form.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>3. How We Use Your Information</h2>
+        <p>We use the information you provide for the following purposes:</p>
+        <ul>
+            <li>To contact you about scheduling a consultation</li>
+            <li>To understand what services you may be seeking</li>
+            <li>To determine fit for psychotherapy services</li>
+            <li>To respond to your questions or messages</li>
+            <li>To maintain internal records of inquiries</li>
+            <li>To comply with any legal or ethical requirements</li>
+        </ul>
+        <p>We do not use your information for advertising or marketing without your consent.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>4. How Your Information Is Stored</h2>
+        <p>Your form submission may be stored in one or more of the following:</p>
+        <ul>
+            <li>Formspree (our form processing provider), which transmits your submission to our email inbox</li>
+            <li>Email (e.g., Gmail inbox)</li>
+            <li>Scheduling or practice management systems (e.g., SimplePractice), once you become a client</li>
+        </ul>
+        <p>Form submissions are processed through Formspree (formspree.io). By submitting the form, your data passes through Formspree's servers. Formspree maintains commercially reasonable security practices. You can review their privacy policy at formspree.io.</p>
+        <p>We take reasonable measures to protect your information, including encryption where supported. However, online communication — including forms and email — cannot be guaranteed to be completely secure.</p>
+        <p>Please do not submit crisis information or highly sensitive medical/psychiatric history through this form.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>5. Sharing of Information</h2>
+        <p>We do not sell, rent, or trade your personal information. Your information may be shared only in the following cases:</p>
+        <p><strong>5.1 With Your Consent</strong></p>
+        <p>If you authorize the release of information to another provider or service.</p>
+        <p><strong>5.2 For Professional or Legal Obligations</strong></p>
+        <p>Information may be disclosed:</p>
+        <ul>
+            <li>If required by law</li>
+            <li>To prevent harm to you or others</li>
+            <li>To comply with professional ethical standards</li>
+            <li>If responding to valid court orders</li>
+        </ul>
+        <p><strong>5.3 With Service Providers</strong></p>
+        <p>Only as needed to operate the website or respond to your inquiry (e.g., Formspree for form processing, email hosting provider). All vendors used for transmission or storage of data are required to maintain commercially reasonable security practices.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>6. Not a HIPAA-Compliant Portal</h2>
+        <p>This website form is not a HIPAA-compliant communication portal. By choosing to submit information through this form, you acknowledge that:</p>
+        <ul>
+            <li>Email communication may not be encrypted end-to-end</li>
+            <li>Website forms, while secured, may not meet full HIPAA standards</li>
+        </ul>
+        <p>Once you become a client, communication may move to a HIPAA-compliant platform.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>7. Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+            <li>Request a copy of the information you submitted</li>
+            <li>Request corrections</li>
+            <li>Request deletion of your inquiry data</li>
+            <li>Withdraw consent for future communication</li>
+        </ul>
+        <p>You may contact us at any time to exercise these rights: <a href="mailto:xiulingliu0223@gmail.com">xiulingliu0223@gmail.com</a></p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>8. Data Retention</h2>
+        <p>We retain form submissions for as long as necessary to:</p>
+        <ul>
+            <li>Respond to your inquiry</li>
+            <li>Maintain records consistent with professional practice standards</li>
+            <li>Meet any legal obligations</li>
+        </ul>
+        <p>You may request deletion at any time.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>9. Crisis and Emergency Situations</h2>
+        <p>This website and consultation form are not monitored 24/7 and should not be used for emergencies or crisis situations.</p>
+        <p>If you are in crisis, please call or text <strong>988</strong>, or go to your nearest emergency room.</p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section">
+        <h2>10. Changes to This Privacy Policy</h2>
+        <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated "Last Updated" date.</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-cols">
+        <div>
+            <div class="footer-col-title">Location</div>
+            <div class="footer-col-body">Chicago, IL</div>
+        </div>
+        <div>
+            <div class="footer-col-title">Social</div>
+            <div class="footer-socials">
+                <a href="https://www.tiktok.com/@xiuling.liu?_r=1&_t=ZT-91Ht7Syxpde" target="_blank" rel="noopener" class="social-icon" title="TikTok">
+                    <img src="assets/tiktok.png" alt="TikTok">
+                </a>
+                <a href="https://www.youtube.com/@beherenow_everymoment" target="_blank" rel="noopener" class="social-icon" title="YouTube">
+                    <img src="assets/youtube.webp" alt="YouTube">
+                </a>
+                <a href="https://www.linkedin.com/in/xiuling-liu-lsw-2570b851" target="_blank" rel="noopener" class="social-icon" title="LinkedIn">
+                    <img src="assets/linkedin.webp" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-col-title">Contact</div>
+            <div class="footer-col-body">
+                <a href="consultation_request.html">Consult Inquiry Form</a>
+                <a href="mailto:xiulingliu0223@gmail.com">xiulingliu0223@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            © 2026 Daily Presence
+            <span class="footer-sep">·</span>
+            Xiuling Liu, LSW
+            <span class="footer-sep">·</span>
+            <a href="privacy.html">Privacy</a>
+            <span class="footer-sep">·</span>
+            <a href="terms.html">Terms</a>
+            <span class="footer-sep">·</span>
+            <a href="presence-privacy.html">App</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

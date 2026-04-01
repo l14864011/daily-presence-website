@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consult Inquiry — Daily Presence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sage:       #B4C0AA;
+            --sage-dark:  #8A9E82;
+            --cream:      #F4F0E8;
+            --text-green: #4A5740;
+            --text-body:  #5C6852;
+            --text-muted: #7A8870;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-green);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─── MAIN SPLIT ──────────────────────────────────────── */
+        .consult-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+            min-height: calc(100vh - 200px);
+        }
+
+        .consult-photo {
+            position: relative;
+            overflow: hidden;
+        }
+        .consult-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: top center;
+            display: block;
+        }
+
+        /* ─── FORM PANEL ──────────────────────────────────────── */
+        .consult-panel {
+            background: var(--sage);
+            padding: 72px 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-green);
+            margin-bottom: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .form-group:last-of-type {
+            margin-bottom: 0;
+        }
+        .field-error {
+            font-size: 12px;
+            color: #7a4040;
+            margin-top: 4px;
+            display: none;
+        }
+        input.invalid, textarea.invalid {
+            background: rgba(244, 224, 224, 0.72);
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--text-green);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            background: rgba(244, 240, 232, 0.72);
+            border: none;
+            border-radius: 3px;
+            padding: 10px 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-green);
+            outline: none;
+            transition: background 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            background: rgba(244, 240, 232, 0.92);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-textarea-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 28px;
+        }
+
+        .submit-wrap {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        button[type="submit"] {
+            background: rgba(138, 158, 130, 0.55);
+            border: none;
+            border-radius: 3px;
+            padding: 11px 32px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--text-green);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: rgba(138, 158, 130, 0.8);
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────────── */
+        footer {
+            background: var(--cream);
+            border-top: 1px solid rgba(74,87,64,0.12);
+            padding: 48px 80px 36px;
+        }
+        .footer-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px; margin-bottom: 40px;
+            text-align: center;
+        }
+        .footer-col-title {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-green); letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .footer-col-body {
+            font-size: 14px; color: var(--text-body);
+            font-weight: 300; line-height: 1.8;
+        }
+        .footer-col-body a {
+            color: var(--text-body); text-decoration: none;
+            display: block; transition: color 0.2s;
+        }
+        .footer-col-body a:hover { color: var(--text-green); }
+        .footer-socials {
+            display: flex; gap: 10px;
+            justify-content: center; align-items: center;
+            margin-top: 4px;
+        }
+        .social-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            overflow: hidden; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.2s; flex-shrink: 0;
+        }
+        .social-icon:hover { opacity: 0.75; }
+        .social-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .footer-bottom {
+            border-top: 1px solid rgba(74,87,64,0.1);
+            padding-top: 24px; text-align: center;
+        }
+        .footer-bottom p {
+            font-size: 13px; color: var(--text-muted); font-weight: 300;
+        }
+        .footer-bottom a {
+            color: var(--text-muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom a:hover { color: var(--text-green); }
+        .footer-sep { margin: 0 6px; opacity: 0.5; }
+
+        /* ─── RESPONSIVE ──────────────────────────────────────── */
+        @media (max-width: 860px) {
+            .consult-wrap { grid-template-columns: 1fr; }
+            .consult-photo { min-height: 50vw; max-height: 420px; }
+            .consult-panel { padding: 52px 28px; }
+            footer { padding: 40px 24px 28px; }
+            .footer-cols { grid-template-columns: 1fr; gap: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="consult-wrap">
+    <div class="consult-photo">
+        <img src="assets/profile.jpeg" alt="Xiuling Liu">
+    </div>
+    <div class="consult-panel">
+        <p class="form-title">Consult Inquiry Form</p>
+        <div id="success-msg" style="display:none; padding: 40px 0; text-align: center;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(18px,2.2vw,24px); color:var(--text-green); margin-bottom:12px;">Thank you for reaching out.</p>
+            <p style="font-size:14px; color:var(--text-body); font-weight:300; line-height:1.7;">I'll be in touch soon.</p>
+        </div>
+        <form id="consult-form" action="https://formspree.io/f/mwvwbgyj" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first_name" autocomplete="given-name">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last_name" autocomplete="family-name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" autocomplete="email">
+                <span class="field-error" id="email-error">Please enter a valid email address.</span>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel">
+                <span class="field-error" id="phone-error">Please enter a valid phone number.</span>
+            </div>
+            <div class="form-textarea-group">
+                <label for="story">Tell me about your story and what you are looking for: *</label>
+                <textarea id="story" name="story"></textarea>
+                <span class="field-error" id="story-error">This field is required.</span>
+            </div>
+            <div class="submit-wrap">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-cols">
+        <div>
+            <div class="footer-col-title">Location</div>
+            <div class="footer-col-body">Chicago, IL</div>
+        </div>
+        <div>
+            <div class="footer-col-title">Social</div>
+            <div class="footer-socials">
+                <a href="https://www.tiktok.com/@xiuling.liu?_r=1&_t=ZT-91Ht7Syxpde" target="_blank" rel="noopener" class="social-icon" title="TikTok">
+                    <img src="assets/tiktok.png" alt="TikTok">
+                </a>
+                <a href="https://www.youtube.com/@beherenow_everymoment" target="_blank" rel="noopener" class="social-icon" title="YouTube">
+                    <img src="assets/youtube.webp" alt="YouTube">
+                </a>
+                <a href="https://www.linkedin.com/in/xiuling-liu-lsw-2570b851" target="_blank" rel="noopener" class="social-icon" title="LinkedIn">
+                    <img src="assets/linkedin.webp" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-col-title">Contact</div>
+            <div class="footer-col-body">
+                <a href="consultation_request.html">Consult Inquiry Form</a>
+                <a href="mailto:xiulingliu0223@gmail.com">xiulingliu0223@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            © 2026 Daily Presence
+            <span class="footer-sep">·</span>
+            Xiuling Liu, LSW
+            <span class="footer-sep">·</span>
+            <a href="privacy.html">Privacy</a>
+            <span class="footer-sep">·</span>
+            <a href="terms.html">Terms</a>
+            <span class="footer-sep">·</span>
+            <a href="presence-privacy.html">App</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRe = /^[\d\s\-\+\(\)]{7,}$/;
+
+    function validate(id, errorId, check) {
+        const el = document.getElementById(id);
+        const err = document.getElementById(errorId);
+        const ok = check(el.value.trim());
+        el.classList.toggle('invalid', !ok);
+        err.style.display = ok ? 'none' : 'block';
+        return ok;
+    }
+
+    ['email', 'phone', 'story'].forEach(function(id) {
+        document.getElementById(id).addEventListener('input', function() {
+            this.classList.remove('invalid');
+            document.getElementById(id + '-error').style.display = 'none';
+        });
+    });
+
+    document.getElementById('consult-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const phoneVal = document.getElementById('phone').value.trim();
+        const ok = [
+            validate('email', 'email-error', v => emailRe.test(v)),
+            phoneVal ? validate('phone', 'phone-error', v => phoneRe.test(v)) : true,
+            validate('story', 'story-error', v => v.length > 0)
+        ].every(Boolean);
+
+        if (!ok) return;
+
+        const form = e.target;
+        const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+            form.style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>

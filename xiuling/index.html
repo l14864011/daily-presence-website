@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Presence — Psychotherapy & Meditation with Xiuling Liu</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-circle.png">
+    <link rel="apple-touch-icon" href="assets/favicon-circle.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --sage:       #B4C0AA;
+            --sage-dark:  #8A9E82;
+            --cream:      #F4F0E8;
+            --text-green: #4A5740;
+            --text-body:  #5C6852;
+            --text-muted: #7A8870;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-green);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAV ─────────────────────────────────────────────── */
+        .site-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 22px 48px;
+            transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+        }
+        .site-nav.scrolled {
+            background: var(--cream);
+            box-shadow: 0 1px 0 rgba(74,87,64,0.1);
+            padding: 16px 48px;
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-weight: 400;
+            font-size: 18px; color: #E8DFC8;
+            text-decoration: none; letter-spacing: 0.01em;
+            transition: color 0.35s ease;
+        }
+        .site-nav.scrolled .nav-logo { color: var(--text-green); }
+        .nav-links {
+            display: flex; gap: 36px; list-style: none;
+        }
+        .nav-links a {
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            color: rgba(232,223,200,0.88);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .site-nav.scrolled .nav-links a { color: var(--text-muted); }
+        .nav-links a:hover { color: #E8DFC8; }
+        .site-nav.scrolled .nav-links a:hover { color: var(--text-green); }
+        .nav-cta {
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            color: rgba(232,223,200,0.88) !important;
+            border: 1px solid rgba(232,223,200,0.4);
+            padding: 7px 18px; border-radius: 2px;
+            text-decoration: none; transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .site-nav.scrolled .nav-cta {
+            color: var(--text-green) !important;
+            border-color: rgba(74,87,64,0.3);
+        }
+        .nav-cta:hover { background: rgba(232,223,200,0.15); }
+        .site-nav.scrolled .nav-cta:hover { background: rgba(74,87,64,0.08); }
+
+        @media (max-width: 680px) {
+            .site-nav { padding: 18px 24px; }
+            .site-nav.scrolled { padding: 14px 24px; }
+            .nav-links { gap: 20px; }
+            .nav-links li.nav-cta-wrap { display: none; }
+        }
+        @media (max-width: 460px) {
+            .nav-links { gap: 14px; }
+            .nav-links li:not(.nav-cta-wrap) a { font-size: 11px; }
+        }
+
+        /* ─── HERO VIDEO ──────────────────────────────────────── */
+        .hero {
+            position: relative;
+            width: 100%; height: 100vh;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-video {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: rgba(80, 140, 80, 0.32);
+        }
+        .hero-text {
+            position: relative; z-index: 10;
+            text-align: center; color: #E8DFC8;
+            padding: 0 40px;
+        }
+        .hero-line1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-weight: 400;
+            font-size: clamp(36px, 5.5vw, 68px);
+            letter-spacing: 0.02em; line-height: 1.2;
+            margin-bottom: 4px;
+            opacity: 0; animation: fadeUp 1.2s ease 0.3s forwards;
+        }
+        .hero-line2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500; font-style: normal;
+            font-size: clamp(42px, 7vw, 88px);
+            letter-spacing: -0.01em; line-height: 1.1;
+            margin-bottom: 18px;
+            opacity: 0; animation: fadeUp 1.2s ease 0.5s forwards;
+        }
+        .hero-line3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300; font-size: clamp(14px, 1.8vw, 20px);
+            letter-spacing: 0.04em;
+            opacity: 0; animation: fadeUp3 1.2s ease 0.75s forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp3 {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 0.82; transform: translateY(0); }
+        }
+
+        /* ─── SCROLL INDICATOR ────────────────────────────────── */
+        .scroll-indicator {
+            position: absolute; bottom: 36px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 10; display: flex; flex-direction: column;
+            align-items: center; gap: 6px;
+            opacity: 0; animation: fadeUp3 1s ease 1.4s forwards;
+        }
+        .scroll-indicator span {
+            font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+            color: rgba(232,223,200,0.6); font-weight: 400;
+        }
+        .scroll-chevron {
+            width: 20px; height: 20px;
+            border-right: 1.5px solid rgba(232,223,200,0.55);
+            border-bottom: 1.5px solid rgba(232,223,200,0.55);
+            transform: rotate(45deg);
+            animation: bounce 1.8s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50%       { transform: rotate(45deg) translateY(5px); }
+        }
+
+        /* ─── DIVIDER ─────────────────────────────────────────── */
+        .divider {
+            background: var(--cream);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 64px 40px;
+            text-align: center;
+        }
+        .divider-lotus {
+            width: 56px; margin-bottom: 24px;
+            opacity: 0.7;
+        }
+        .divider-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: clamp(18px, 2.4vw, 26px);
+            color: var(--text-green); font-weight: 400;
+            max-width: 560px; line-height: 1.65;
+            position: relative; padding: 0 28px;
+        }
+        .divider-quote::before {
+            content: '\201C';
+            position: absolute; left: 0; top: -6px;
+            font-size: 2.4em; color: var(--sage);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        /* ─── DIVIDER CTA ─────────────────────────────────────── */
+        .divider-cta-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: clamp(16px, 2vw, 22px);
+            color: var(--text-body); font-weight: 400;
+            margin-bottom: 24px; line-height: 1.6;
+        }
+        .divider-btn {
+            display: inline-block;
+            padding: 13px 32px;
+            border: 1px solid rgba(74,87,64,0.35);
+            border-radius: 2px;
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--text-green); text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .divider-btn:hover {
+            background: rgba(74,87,64,0.08);
+            border-color: rgba(74,87,64,0.55);
+        }
+
+        /* ─── FADE-IN ON SCROLL ───────────────────────────────── */
+        .fade-in {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in.visible {
+            opacity: 1; transform: translateY(0);
+        }
+
+        /* ─── MY STORY ────────────────────────────────────────── */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+        }
+        .split-photo {
+            position: relative; overflow: hidden;
+        }
+        .split-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: top center;
+            display: block;
+        }
+        .split-content {
+            background: var(--sage);
+            padding: 80px 64px;
+            display: flex; flex-direction: column;
+            justify-content: center;
+        }
+        .split-content.right-content {
+            padding: 80px 72px 80px 64px;
+        }
+        .split-heading {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500; font-size: clamp(22px, 2.8vw, 32px);
+            color: var(--text-green); margin-bottom: 28px; line-height: 1.2;
+        }
+        .split-body {
+            display: flex; flex-direction: column; gap: 18px;
+        }
+        .split-body p {
+            font-size: clamp(14px, 1.4vw, 16px);
+            color: var(--text-body); line-height: 1.85;
+            font-weight: 300;
+        }
+
+        /* ─── STORY SPECIFIC ──────────────────────────────────── */
+        .story-body {
+            display: flex; flex-direction: column; gap: 28px;
+        }
+        .story-body p {
+            font-size: clamp(14px, 1.4vw, 16px);
+            color: var(--text-body); line-height: 1.85;
+            font-weight: 300;
+        }
+        .story-body p.beat {
+            color: var(--text-green);
+            font-weight: 400;
+            font-size: clamp(14px, 1.45vw, 16.5px);
+            margin-top: 4px; margin-bottom: 4px;
+        }
+        .story-body p.lead {
+            font-size: clamp(15px, 1.6vw, 17px);
+            font-weight: 400; color: var(--text-green);
+            line-height: 1.75;
+        }
+        .story-body p.closing {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: clamp(14px, 1.4vw, 16px);
+            color: var(--text-muted); font-weight: 400;
+            line-height: 1.7;
+        }
+        .story-divider {
+            display: flex; align-items: center; gap: 12px;
+            margin: 4px 0;
+        }
+        .story-divider img {
+            width: 28px; opacity: 0.45;
+        }
+        .split-body .meta {
+            margin-top: 8px;
+        }
+        .split-body .meta-label {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-green); letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .split-body .meta-value {
+            font-size: 14px; color: var(--text-body); font-weight: 300;
+        }
+        .split-tag {
+            font-size: 11px; font-weight: 500;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .split-body p.lead {
+            font-size: clamp(15px, 1.6vw, 17px);
+            font-weight: 400; color: var(--text-green);
+            line-height: 1.75;
+        }
+        .split-body p.closing {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: clamp(14px, 1.4vw, 16px);
+            color: var(--text-muted); font-weight: 400;
+            line-height: 1.7; margin-top: 4px;
+        }
+        .split-btn {
+            display: inline-block; margin-top: 24px;
+            padding: 12px 28px;
+            border: 1px solid rgba(74,87,64,0.35);
+            border-radius: 2px;
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            color: var(--text-green); text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+            align-self: flex-start;
+        }
+        .split-btn:hover {
+            background: rgba(74,87,64,0.1);
+            border-color: rgba(74,87,64,0.55);
+        }
+
+        /* ─── MY OFFERINGS ────────────────────────────────────── */
+        .offerings {
+            background: var(--cream);
+            padding: 88px 40px 72px;
+            text-align: center;
+        }
+        .offerings-heading {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-weight: 400;
+            font-size: clamp(26px, 3.5vw, 40px);
+            color: var(--text-green); margin-bottom: 12px;
+        }
+        .offerings-tagline {
+            font-size: clamp(13px, 1.4vw, 15px);
+            color: var(--text-muted); font-weight: 300;
+            margin-bottom: 56px; line-height: 1.6;
+        }
+        .offerings-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 32px; max-width: 820px; margin: 0 auto;
+        }
+        .offering-item {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 16px;
+            padding: 36px 24px;
+            border: 1px solid rgba(74,87,64,0.12);
+            border-radius: 3px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .offering-item:hover {
+            border-color: rgba(74,87,64,0.28);
+            background: rgba(180,192,170,0.1);
+        }
+        .offering-number {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: 36px;
+            color: var(--sage); font-weight: 400;
+            line-height: 1;
+        }
+        .offering-name {
+            font-size: clamp(13px, 1.4vw, 15px);
+            color: var(--text-body); font-weight: 300;
+            line-height: 1.5; max-width: 160px;
+        }
+        .offering-link {
+            font-size: 12px; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-muted);
+            text-decoration: none; margin-top: 4px;
+            transition: color 0.2s;
+        }
+        .offering-link:hover { color: var(--text-green); }
+
+        /* ─── SERVICE IMAGE ───────────────────────────────────── */
+        .split-image-right .split-photo { order: 2; }
+        .split-image-right .split-content { order: 1; }
+
+        .split-bg {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────────── */
+        footer {
+            background: var(--cream);
+            border-top: 1px solid rgba(74,87,64,0.12);
+            padding: 60px 80px 40px;
+        }
+        .footer-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px; margin-bottom: 48px;
+            text-align: center;
+        }
+        .footer-col-title {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-green); letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+        .footer-col-body {
+            font-size: 14px; color: var(--text-body);
+            font-weight: 300; line-height: 1.8;
+        }
+        .footer-col-body a {
+            color: var(--text-body); text-decoration: none;
+            display: block; transition: color 0.2s;
+        }
+        .footer-col-body a:hover { color: var(--text-green); }
+        .footer-socials {
+            display: flex; gap: 10px;
+            justify-content: center; align-items: center;
+            margin-top: 4px;
+        }
+        .social-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            overflow: hidden; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.2s; flex-shrink: 0;
+        }
+        .social-icon:hover { opacity: 0.75; }
+        .social-icon img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(74,87,64,0.1);
+            padding-top: 24px; text-align: center;
+        }
+        .footer-bottom p {
+            font-size: 13px; color: var(--text-muted); font-weight: 300;
+        }
+        .footer-bottom a {
+            color: var(--text-muted); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom a:hover { color: var(--text-green); }
+        .footer-sep { margin: 0 6px; opacity: 0.5; }
+
+        /* ─── RESPONSIVE ──────────────────────────────────────── */
+        @media (max-width: 860px) {
+            .split { grid-template-columns: 1fr; min-height: auto; }
+            .split-photo { min-height: 50vw; max-height: 480px; }
+            .split-image-right .split-photo { order: -1; }
+            .split-image-right .split-content { order: 0; }
+            .split-content, .split-content.right-content { padding: 52px 28px; }
+            .offerings-grid { grid-template-columns: 1fr; gap: 16px; max-width: 360px; }
+            footer { padding: 48px 28px 32px; }
+            .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+        }
+        @media (max-width: 540px) {
+            .hero-text { padding: 0 20px; }
+            .offerings { padding: 60px 20px 50px; }
+            .divider { padding: 52px 24px; }
+            .footer-cols { padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── NAV ───────────────────────────────────────────────────────── -->
+<nav class="site-nav" id="site-nav">
+    <a href="#" class="nav-logo">Daily Presence</a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="nav-cta-wrap"><a href="consultation_request.html" class="nav-cta">Book a consult</a></li>
+    </ul>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────────────────── -->
+<section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+        <p class="hero-line1">Presence.</p>
+        <p class="hero-line2">Compassion. Change</p>
+        <p class="hero-line3">Psychotherapy &amp; Meditation with Xiuling Liu</p>
+    </div>
+    <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-chevron"></div>
+    </div>
+</section>
+
+<!-- ─── DIVIDER ───────────────────────────────────────────────────── -->
+<div class="divider fade-in">
+    <img src="assets/lotus-art.png" alt="" class="divider-lotus">
+    <p class="divider-quote">Does water have to do something?</p>
+</div>
+
+<!-- ─── MY STORY ─────────────────────────────────────────────────── -->
+<div class="split fade-in" id="about">
+    <div class="split-photo">
+        <img src="assets/profile.jpeg" alt="Xiuling Liu">
+    </div>
+    <div class="split-content right-content">
+        <p class="split-tag">Psychotherapist &nbsp;·&nbsp; Meditation Teacher &nbsp;·&nbsp; Chicago, IL</p>
+        <h2 class="split-heading">My Story</h2>
+        <div class="story-body">
+            <p class="lead">When I was a little girl, I loved spending hours by the creek near my home. I would slip off my shoes, sink my feet into the cool, flowing water, and watch sunlight shimmer across the surface.</p>
+            <p>The water moved gently, never clinging to a single pebble or leaf.</p>
+            <p>I remember feeling a quiet joy in those moments — not needing to be anywhere else, not wishing for anything different.</p>
+            <p>I didn't know it then, but I was practicing the art of being present.</p>
+            <p>My path as a meditation teacher and psychotherapist grew from that early connection to stillness and flow — from learning that peace is not something we achieve, but something we notice when we truly pay attention.</p>
+            <p>My work today is rooted in that same simple truth: that awareness, compassion, and presence can transform the way we live, love, and heal.</p>
+            <p class="closing">My mission is to help others reconnect with that inner stillness — the same quiet stream of life that has always been there, waiting to be felt.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ─── MY OFFERINGS ──────────────────────────────────────────────── -->
+<section class="offerings fade-in" id="services">
+    <h2 class="offerings-heading">My Offerings</h2>
+    <p class="offerings-tagline">Three pathways to presence, each tailored to where you are.</p>
+    <div class="offerings-grid">
+        <div class="offering-item">
+            <span class="offering-number">01</span>
+            <p class="offering-name">Psychotherapy</p>
+            <a href="#psychotherapy" class="offering-link">Learn more</a>
+        </div>
+        <div class="offering-item">
+            <span class="offering-number">02</span>
+            <p class="offering-name">Mindfulness-Based Stress Reduction</p>
+            <a href="#mbsr" class="offering-link">Learn more</a>
+        </div>
+        <div class="offering-item">
+            <span class="offering-number">03</span>
+            <p class="offering-name">Individual Meditation Lessons</p>
+            <a href="#meditation" class="offering-link">Learn more</a>
+        </div>
+    </div>
+</section>
+
+<!-- ─── PSYCHOTHERAPY ──────────────────────────────────────────────── -->
+<div class="split split-image-right fade-in" id="psychotherapy">
+    <div class="split-content">
+        <p class="split-tag">DBT &nbsp;·&nbsp; CBT &nbsp;·&nbsp; ACT &nbsp;·&nbsp; Mindfulness</p>
+        <h2 class="split-heading">Psychotherapy</h2>
+        <div class="split-body">
+            <p class="lead">In therapy, I strive to create a space that feels safe, grounding, and real — a space where you can breathe, reflect, and return to yourself.</p>
+            <p>My approach draws from DBT, CBT, and ACT, but beneath every method is a deep trust in mindfulness — the practice of noticing what is here, right now, without judgment. We learn to meet our thoughts and emotions with curiosity instead of resistance, to soften the inner struggle, and to respond to life with clarity and compassion.</p>
+            <p>Together, we explore not just the stories we carry but the quiet awareness beneath them — the part of you that has always been whole.</p>
+            <p class="closing">Healing is not about becoming someone new. It's about coming home to yourself.</p>
+            <div class="meta">
+                <div class="meta-label">Education</div>
+                <div class="meta-value">MA in Social Work&nbsp;&nbsp;University of Chicago</div>
+            </div>
+            <a href="consultation_request.html" class="split-btn">Book a free consult</a>
+        </div>
+    </div>
+    <div class="split-photo">
+        <img src="assets/bg-swirl.png" alt="" class="split-bg">
+    </div>
+</div>
+
+<!-- ─── DIVIDER CTA ────────────────────────────────────────────────── -->
+<div class="divider fade-in">
+    <img src="assets/lotus-art.png" alt="" class="divider-lotus">
+    <p class="divider-cta-text">Let's connect.</p>
+    <a href="consultation_request.html" class="divider-btn">Book a free 15-minute consult</a>
+</div>
+
+<!-- ─── MBSR ───────────────────────────────────────────────────────── -->
+<div class="split fade-in" id="mbsr">
+    <div class="split-photo">
+        <img src="assets/lotus-portrait.jpg" alt="Lotus in nature">
+    </div>
+    <div class="split-content right-content">
+        <p class="split-tag">8-Week Program &nbsp;·&nbsp; Evidence-Based</p>
+        <h2 class="split-heading">Mindfulness-Based Stress Reduction</h2>
+        <div class="split-body">
+            <p class="lead">MBSR is a structured eight-week program that teaches you how to use mindfulness — meditation, gentle movement, and breath awareness — to reduce stress and restore well-being.</p>
+            <p>Originally developed by Dr. Jon Kabat-Zinn, MBSR invites participants to turn toward their experiences, both pleasant and painful, with openness and compassion. It's not about eliminating stress, but transforming our relationship with it. For many, it becomes more than a program — it's a way of living with clarity, connection, and balance.</p>
+            <p class="closing">You don't need to fix yourself. You need to meet yourself.</p>
+            <a href="consultation_request.html" class="split-btn">Book a free consult</a>
+        </div>
+    </div>
+</div>
+
+<!-- ─── DIVIDER ───────────────────────────────────────────────────── -->
+<div class="divider fade-in">
+    <img src="assets/lotus-art.png" alt="" class="divider-lotus">
+    <p class="divider-quote">No, the purpose of water is to be water.</p>
+</div>
+
+<!-- ─── MEDITATION ─────────────────────────────────────────────────── -->
+<div class="split split-image-right fade-in" id="meditation">
+    <div class="split-content">
+        <p class="split-tag">One-on-One &nbsp;·&nbsp; Personalized</p>
+        <h2 class="split-heading">Individual Meditation Lessons</h2>
+        <div class="split-body">
+            <p class="lead">Every person's path into mindfulness is unique. In these one-on-one sessions, I offer a space to slow down, explore stillness, and reconnect with yourself in a way that feels personal and grounded.</p>
+            <p>Together, we'll find practices that meet you where you are — whether you're seeking calm amidst stress, deeper awareness, or a steadier connection to the present moment. Sessions may include guided meditations, mindful inquiry, or simple awareness practices woven naturally into daily life.</p>
+            <p class="closing">Stillness is not something you find. It's something you return to.</p>
+            <a href="consultation_request.html" class="split-btn">Book a free consult</a>
+        </div>
+    </div>
+    <div class="split-photo">
+        <img src="assets/leaf.jpg" alt="Green leaf close-up">
+    </div>
+</div>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<footer id="contact">
+    <div class="footer-cols">
+        <div>
+            <div class="footer-col-title">Location</div>
+            <div class="footer-col-body">Chicago, IL</div>
+        </div>
+        <div>
+            <div class="footer-col-title">Social</div>
+            <div class="footer-socials">
+                <a href="https://www.tiktok.com/@xiuling.liu?_r=1&_t=ZT-91Ht7Syxpde" target="_blank" rel="noopener" class="social-icon" title="TikTok">
+                    <img src="assets/tiktok.png" alt="TikTok">
+                </a>
+                <a href="https://www.youtube.com/@beherenow_everymoment" target="_blank" rel="noopener" class="social-icon" title="YouTube">
+                    <img src="assets/youtube.webp" alt="YouTube">
+                </a>
+                <a href="https://www.linkedin.com/in/xiuling-liu-lsw-2570b851" target="_blank" rel="noopener" class="social-icon" title="LinkedIn">
+                    <img src="assets/linkedin.webp" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-col-title">Contact</div>
+            <div class="footer-col-body">
+                <a href="consultation_request.html">Consult Inquiry Form</a>
+                <a href="mailto:xiulingliu0223@gmail.com">xiulingliu0223@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            © 2026 Daily Presence
+            <span class="footer-sep">·</span>
+            Xiuling Liu, LSW
+            <span class="footer-sep">·</span>
+            <a href="privacy.html">Privacy</a>
+            <span class="footer-sep">·</span>
+            <a href="terms.html">Terms</a>
+            <span class="footer-sep">·</span>
+            <a href="presence-privacy.html">App</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Nav: switch style on scroll
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
