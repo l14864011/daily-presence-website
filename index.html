@@ -527,7 +527,17 @@
     }
 
     if (mode === 'verifyEmail' && oobCode && apiKey) {
-      showActionPage(`<p id="action-msg" style="font-size:16px;color:#7A7A70;font-weight:300;line-height:1.7">Verifying your email…</p>`);
+      showActionPage(`
+        <div id="action-msg">
+          <style>@keyframes breathDot{0%,80%,100%{transform:scale(0.55);opacity:0.3}40%{transform:scale(1);opacity:0.8}}</style>
+          <div style="display:flex;justify-content:center;gap:7px;margin-bottom:18px">
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7A9270;animation:breathDot 1.5s ease-in-out infinite both"></span>
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7A9270;animation:breathDot 1.5s ease-in-out 0.25s infinite both"></span>
+            <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#7A9270;animation:breathDot 1.5s ease-in-out 0.5s infinite both"></span>
+          </div>
+          <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:#7A9270;margin:0">Verifying…</p>
+        </div>
+      `);
 
       fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${encodeURIComponent(apiKey)}`, {
         method: 'POST',
@@ -538,13 +548,19 @@
       .then(data => {
         const msg = document.getElementById('action-msg');
         if (data.error) {
-          msg.innerHTML = `<span style="color:#c0392b">Verification failed: ${data.error.message.replace(/_/g,' ').toLowerCase()}</span><br><br><a href="/" style="color:#3A5532;font-weight:500">Return to Presence</a>`;
+          msg.innerHTML = `<p style="font-size:14px;color:#c0392b;margin-bottom:16px">Verification failed: ${data.error.message.replace(/_/g,' ').toLowerCase()}</p><a href="/" style="color:#3A5532;font-size:14px;font-weight:500">Return to Presence →</a>`;
         } else {
-          msg.innerHTML = `<span style="font-size:36px">✓</span><br><br><strong style="color:#3A5532;font-size:18px;font-family:'Playfair Display',serif;font-style:italic">Email verified!</strong><br><br><span style="font-size:14px;color:#7A7A70">You can now sign in to Presence.</span>`;
+          msg.innerHTML = `
+            <div style="width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(58,85,50,0.2);background:rgba(58,85,50,0.07);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A5532" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:#3A5532;margin:0 0 10px">You're in.</p>
+            <p style="font-size:14px;color:#7A7A70;line-height:1.75;margin:0">Your email is confirmed.<br>Head back to Presence to begin your first moment.</p>
+          `;
         }
       })
       .catch(() => {
-        document.getElementById('action-msg').innerHTML = `Something went wrong. Please try again or <a href="/" style="color:#3A5532">return home</a>.`;
+        document.getElementById('action-msg').innerHTML = `<p style="font-size:14px;color:#7A7A70;margin-bottom:16px">Something went wrong. Please try again.</p><a href="/" style="color:#3A5532;font-size:14px;font-weight:500">Return to Presence →</a>`;
       });
 
       return;
@@ -553,8 +569,14 @@
     if (mode === 'resetPassword' && oobCode && apiKey) {
       showActionPage(`
         <p style="font-size:16px;color:#7A7A70;font-weight:300;line-height:1.7;margin-bottom:24px">Enter your new password</p>
-        <input id="pw1" type="password" placeholder="New password" style="width:100%;padding:12px 16px;border-radius:100px;border:1.5px solid rgba(58,85,50,0.2);font-size:14px;font-family:inherit;outline:none;margin-bottom:10px;box-sizing:border-box;background:rgba(255,255,255,0.8)">
-        <input id="pw2" type="password" placeholder="Confirm password" style="width:100%;padding:12px 16px;border-radius:100px;border:1.5px solid rgba(58,85,50,0.2);font-size:14px;font-family:inherit;outline:none;margin-bottom:18px;box-sizing:border-box;background:rgba(255,255,255,0.8)">
+        <div style="position:relative;margin-bottom:10px">
+          <input id="pw1" type="password" placeholder="New password" style="width:100%;padding:12px 44px 12px 16px;border-radius:100px;border:1.5px solid rgba(58,85,50,0.2);font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;background:rgba(255,255,255,0.8)">
+          <button type="button" onclick="var i=document.getElementById('pw1');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'Show':'Hide'" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:12px;color:#7A7A70;cursor:pointer;padding:0">Show</button>
+        </div>
+        <div style="position:relative;margin-bottom:18px">
+          <input id="pw2" type="password" placeholder="Confirm password" style="width:100%;padding:12px 44px 12px 16px;border-radius:100px;border:1.5px solid rgba(58,85,50,0.2);font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;background:rgba(255,255,255,0.8)">
+          <button type="button" onclick="var i=document.getElementById('pw2');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'Show':'Hide'" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:12px;color:#7A7A70;cursor:pointer;padding:0">Show</button>
+        </div>
         <button id="reset-btn" style="width:100%;padding:13px;border-radius:100px;border:none;background:#3A5532;color:white;font-size:15px;font-family:'Playfair Display',serif;font-style:italic;cursor:pointer">Reset Password</button>
         <p id="action-msg" style="margin-top:14px;font-size:14px;color:#c0392b;min-height:20px"></p>
       `);
@@ -587,7 +609,13 @@
             document.querySelector('input#pw2').remove();
             document.getElementById('reset-btn').remove();
             msg.style.color = '#3A5532';
-            msg.innerHTML = `<span style="font-size:36px">✓</span><br><br><strong style="font-size:18px;font-family:'Playfair Display',serif;font-style:italic">Password reset!</strong><br><br><span style="color:#7A7A70">You can now sign in to Presence with your new password.</span>`;
+            msg.innerHTML = `
+              <div style="width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(58,85,50,0.2);background:rgba(58,85,50,0.07);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3A5532" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:#3A5532;margin:0 0 10px">Password reset.</p>
+              <p style="font-size:14px;color:#7A7A70;line-height:1.75;margin:0">Head back to Presence and sign in<br>with your new password.</p>
+            `;
           }
         })
         .catch(() => {
