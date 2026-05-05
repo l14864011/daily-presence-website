@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account — Presence</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --green: #3A5532;
+      --sage:  #7A9270;
+      --text:  #2C2C28;
+      --muted: #7A7A70;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAF7F3;
+      color: var(--text);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 20px; color: var(--green); text-decoration: none;
+    }
+    main {
+      max-width: 680px;
+      margin: 60px auto;
+      padding: 0 24px 80px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+    h2 {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 16px;
+      margin-top: 40px;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    ul {
+      margin: 0 0 16px 20px;
+    }
+    ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .method {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 32px;
+    }
+    .method-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .method p {
+      margin-bottom: 0;
+    }
+    a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .email-btn {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 12px 24px;
+      background: var(--green);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="/">Presence</a>
+  </nav>
+
+  <main>
+    <h1>Delete Your Account</h1>
+    <p class="subtitle">You can request deletion of your Presence account and all associated data at any time, using either of the methods below.</p>
+
+    <h2>Option 1 — Delete from the app</h2>
+    <div class="method">
+      <p class="method-title">In-app account deletion (instant)</p>
+      <p>Open Presence → tap your profile icon → <strong>Account</strong> → scroll to the bottom → tap <strong>Delete Account</strong>. You will be asked to re-authenticate before deletion is confirmed.</p>
+    </div>
+
+    <h2>Option 2 — Submit a request by email</h2>
+    <div class="method">
+      <p class="method-title">Email us</p>
+      <p>Send a deletion request from the email address associated with your account to:</p>
+      <a class="email-btn" href="mailto:lxl640213@gmail.com?subject=Account%20Deletion%20Request">lxl640213@gmail.com</a>
+      <p style="margin-top:14px;">Please include <strong>Account Deletion Request</strong> in the subject line. We will process your request within 7 days and confirm by email.</p>
+    </div>
+
+    <h2>What gets deleted</h2>
+    <ul>
+      <li>Your account credentials (email, name)</li>
+      <li>All session history and guidance records</li>
+      <li>Voice and language preferences</li>
+      <li>Any photos you submitted for guidance generation</li>
+    </ul>
+
+    <h2>What is retained</h2>
+    <p>Anonymized, non-identifiable usage statistics may be retained for up to 90 days for internal analytics, after which they are permanently deleted.</p>
+
+    <p class="note">For questions about your data, see our <a href="/privacy.html">Privacy Policy</a> or contact us at <a href="mailto:lxl640213@gmail.com">lxl640213@gmail.com</a>.</p>
+  </main>
+</body>
+</html>
