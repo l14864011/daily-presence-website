@@ -75,7 +75,7 @@
 
 <main>
   <h1 class="page-title">Terms of Service</h1>
-  <p class="page-date">Last updated: March 31, 2026</p>
+  <p class="page-date">Last updated: May 27, 2026</p>
 
   <p>Welcome to Presence ("the App"), operated by Xiuling Liu ("we," "us," or "our"). By using the App, you agree to these Terms of Service ("Terms"). If you do not agree, please do not use the App.</p>
 
@@ -86,7 +86,11 @@
   <p>The App uses third-party services to provide its functionality:</p>
   <ul>
     <li><strong>OpenAI</strong>: receives and processes any input you choose to provide (such as text or an image) to generate personalized mindfulness guidance</li>
-    <li><strong>Inworld</strong>: receives generated text (not raw user input) to convert it into audio for playback</li>
+    <li><strong>Inworld</strong>: receives generated text (not raw user input) to convert it into audio for playback (English)</li>
+    <li><strong>Fish Audio</strong>: receives generated text (not raw user input) to convert it into audio for playback (Chinese)</li>
+    <li><strong>Open-Meteo</strong>: receives your approximate coordinates to return weather information used by the home-screen widget and, occasionally, your guidance</li>
+    <li><strong>Firebase (Google)</strong>: authentication and limited data storage (account info, preferences, session metadata)</li>
+    <li><strong>Expo</strong>: registers push notification tokens and routes remote notifications through Apple Push Notification service (APNs) and Google Firebase Cloud Messaging (FCM)</li>
   </ul>
   <p>These services are used solely to deliver the App's core experience.</p>
 
@@ -94,11 +98,14 @@
   <p>To provide guidance:</p>
   <ul>
     <li>Any input you choose to provide (such as text or an image) is securely sent to OpenAI</li>
-    <li>Generated text may be sent to Inworld for audio playback</li>
+    <li>Generated text may be sent to Inworld or Fish Audio for audio playback</li>
     <li>You may choose to provide text, an image, both, or neither</li>
     <li>We do <strong>not store your input or the generated guidance</strong> after your session is complete</li>
   </ul>
   <p>By using the App, you consent to this processing.</p>
+
+  <h2>3a. Location and Notifications</h2>
+  <p>With your permission, the App reads your approximate location for ambient weather context (widget + occasional guidance) and may send you daily reminders that you schedule locally on your device, plus occasional remote notifications. You can revoke either permission in your device Settings at any time.</p>
 
   <h2>4. Use of the App</h2>
   <p>You agree to use the App only for lawful, personal, and non-commercial purposes. You must not misuse the App or interfere with its operation.</p>
