@@ -75,7 +75,7 @@
 
 <main>
   <h1 class="page-title">Privacy Policy</h1>
-  <p class="page-date">Last updated: June 4, 2026</p>
+  <p class="page-date">Last updated: June 12, 2026</p>
 
   <p>Presence ("we," "us," or "our") is operated by Xiuling Liu. We respect your privacy and are committed to protecting your information. This Privacy Policy explains how we handle your data when you use the App.</p>
 
@@ -89,7 +89,7 @@
     <li>Show the current weather and time of day in the home-screen widget</li>
     <li>Occasionally weave a brief weather note into your guidance, so a session can feel grounded in where you are</li>
   </ul>
-  <p>Your coordinates are sent to <strong>Open-Meteo</strong> for weather lookup. We do not store your coordinates. You can disable Location at any time in your device Settings.</p>
+  <p>Your coordinates are sent to our weather service (hosted on <strong>Cloudflare Workers</strong>), which forwards them to <strong>Apple Weather (WeatherKit)</strong> and <strong>Open-Meteo</strong> to look up current conditions. We do not store your coordinates. You can disable Location at any time in your device Settings.</p>
 
   <h2>3. Notifications</h2>
   <p>The App can send daily reminders that you schedule yourself; these run locally on your device and require no internet connection. With your permission, we also register a push token (delivered through <strong>Expo</strong>, <strong>Apple Push Notification service (APNs)</strong>, and <strong>Google Firebase Cloud Messaging (FCM)</strong>) so we can occasionally send you a relevant message. You can turn off Notifications at any time in your device Settings.</p>
@@ -127,10 +127,11 @@
     <li><strong>OpenAI</strong> — processes user input to generate guidance</li>
     <li><strong>Inworld</strong> — converts generated text into audio (English)</li>
     <li><strong>Fish Audio</strong> — converts generated text into audio (Chinese)</li>
-    <li><strong>Open-Meteo</strong> — receives approximate coordinates to return current weather</li>
+    <li><strong>Apple Weather (WeatherKit)</strong> — receives approximate coordinates to return current weather</li>
+    <li><strong>Open-Meteo</strong> — receives approximate coordinates to return current weather and sunrise/sunset times</li>
     <li><strong>Firebase (Google)</strong> — authentication and limited data storage</li>
     <li><strong>Expo</strong> — registers push notification tokens; routes push notifications to Apple Push Notification service (APNs) and Google Firebase Cloud Messaging (FCM)</li>
-    <li><strong>Cloudflare (Workers)</strong> — runs scheduled jobs that refresh the widget's weather and that revoke Sign in with Apple tokens when you delete your account</li>
+    <li><strong>Cloudflare (Workers)</strong> — relays weather requests (receiving approximate coordinates) to Apple Weather and Open-Meteo; also runs scheduled jobs that refresh the widget's weather and that revoke Sign in with Apple tokens when you delete your account</li>
   </ul>
   <p>These providers process data only as needed to deliver the App's features.</p>
 
