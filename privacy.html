@@ -75,7 +75,7 @@
 
 <main>
   <h1 class="page-title">Privacy Policy</h1>
-  <p class="page-date">Last updated: June 12, 2026</p>
+  <p class="page-date">Last updated: June 17, 2026</p>
 
   <p>Presence ("we," "us," or "our") is operated by Xiuling Liu. We respect your privacy and are committed to protecting your information. This Privacy Policy explains how we handle your data when you use the App.</p>
 
@@ -87,9 +87,9 @@
   <p>With your permission, the App reads your approximate location to:</p>
   <ul>
     <li>Show the current weather and time of day in the home-screen widget</li>
-    <li>Occasionally weave a brief weather note into your guidance, so a session can feel grounded in where you are</li>
+    <li>Add brief context to your guidance — the current weather, time of day, season, and your city — so a session can feel grounded in where and when you are</li>
   </ul>
-  <p>Your coordinates are sent to our weather service (hosted on <strong>Cloudflare Workers</strong>), which forwards them to <strong>Apple Weather (WeatherKit)</strong> and <strong>Open-Meteo</strong> to look up current conditions. We do not store your coordinates. You can disable Location at any time in your device Settings.</p>
+  <p>Your coordinates are sent to our weather service (hosted on <strong>Cloudflare Workers</strong>), which forwards them to <strong>Apple Weather (WeatherKit)</strong> and <strong>Open-Meteo</strong> to look up current conditions. Your approximate location is also used to determine your city, season, and local time of day; these — your city, season, time of day, and weather, but not your exact coordinates — are included with your input sent to <strong>OpenAI</strong> to generate your guidance (see Section 5). We do not store your coordinates. You can disable Location at any time in your device Settings.</p>
 
   <h2>3. Notifications</h2>
   <p>The App can send daily reminders that you schedule yourself; these run locally on your device and require no internet connection. With your permission, we also register a push token (delivered through <strong>Expo</strong>, <strong>Apple Push Notification service (APNs)</strong>, and <strong>Google Firebase Cloud Messaging (FCM)</strong>) so we can occasionally send you a relevant message. You can turn off Notifications at any time in your device Settings.</p>
@@ -100,12 +100,12 @@
   <h2>5. How Your Information Is Used</h2>
   <p>To generate your experience:</p>
   <ul>
-    <li>Any input you choose to provide (such as text or an image) is securely sent to <strong>OpenAI</strong> to generate personalized mindfulness guidance</li>
+    <li>Any input you choose to provide (such as text or an image), together with brief context about your current moment — your approximate location (city), local time of day, season, and weather — is securely sent to <strong>OpenAI</strong> to generate personalized mindfulness guidance</li>
     <li>The generated text may be sent to <strong>Inworld</strong> (English) or <strong>Fish Audio</strong> (Chinese) to produce audio playback</li>
   </ul>
   <p><strong>Important:</strong></p>
   <ul>
-    <li>OpenAI receives user-provided input</li>
+    <li>OpenAI receives user-provided input and the brief location, time, season, and weather context described above</li>
     <li>Inworld and Fish Audio receive only generated text, not raw user input</li>
   </ul>
 
@@ -124,7 +124,7 @@
   <h2>7. Third-Party Services</h2>
   <p>We use the following services to operate the App:</p>
   <ul>
-    <li><strong>OpenAI</strong> — processes user input to generate guidance</li>
+    <li><strong>OpenAI</strong> — processes user input, plus brief context (approximate city, time of day, season, weather), to generate guidance</li>
     <li><strong>Inworld</strong> — converts generated text into audio (English)</li>
     <li><strong>Fish Audio</strong> — converts generated text into audio (Chinese)</li>
     <li><strong>Apple Weather (WeatherKit)</strong> — receives approximate coordinates to return current weather</li>

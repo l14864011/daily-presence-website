@@ -75,7 +75,7 @@
 
 <main>
   <h1 class="page-title">隐私政策</h1>
-  <p class="page-date">最后更新：2026年6月12日</p>
+  <p class="page-date">最后更新：2026年6月17日</p>
 
   <p>当下（"我们"）由刘秀玲运营。我们尊重你的隐私，致力于保护你的信息安全。本隐私政策说明我们在你使用本应用时如何处理你的数据。</p>
 
@@ -87,9 +87,9 @@
   <p>在你授权后，本应用会读取你的大致位置，用于：</p>
   <ul>
     <li>在主屏幕小组件中显示当前天气和时段</li>
-    <li>偶尔在引导中加入一句与天气相关的描述，让会话与你所处的环境更贴近</li>
+    <li>为你的引导加入简短的背景信息——当前天气、时段、季节和你所在的城市——让会话与你所处的时间和环境更贴近</li>
   </ul>
-  <p>你的位置坐标会被发送至我们的天气服务（托管于 <strong>Cloudflare Workers</strong>），并由其转发给 <strong>Apple 天气（WeatherKit）</strong>和 <strong>Open-Meteo</strong> 以查询当前天气。我们不会存储你的坐标。你可以随时在系统设置中关闭位置权限。</p>
+  <p>你的位置坐标会被发送至我们的天气服务（托管于 <strong>Cloudflare Workers</strong>），并由其转发给 <strong>Apple 天气（WeatherKit）</strong>和 <strong>Open-Meteo</strong> 以查询当前天气。你的大致位置还会用于推断你所在的城市、季节和当地时段；这些信息——你的城市、季节、时段和天气，但不包括你的精确坐标——会随你的输入一起发送至 <strong>OpenAI</strong> 以生成引导（见第 5 节）。我们不会存储你的坐标。你可以随时在系统设置中关闭位置权限。</p>
 
   <h2>3. 通知</h2>
   <p>本应用可以发送你自己设定的每日提醒，提醒在设备本地运行，无需联网。在你授权后，我们还会注册推送通知令牌（通过 <strong>Expo</strong>、<strong>Apple 推送通知服务（APNs）</strong>和 <strong>Google Firebase 云消息服务（FCM）</strong>投递），以便偶尔向你发送相关消息。你可以随时在系统设置中关闭通知。</p>
@@ -100,12 +100,12 @@
   <h2>5. 信息的使用方式</h2>
   <p>为了生成你的体验：</p>
   <ul>
-    <li>你选择提供的任何内容（如文字或图片）将被安全发送至 <strong>OpenAI</strong>，用于生成个性化的正念引导</li>
+    <li>你选择提供的任何内容（如文字或图片），连同关于你当下的简短背景信息——你的大致位置（城市）、当地时段、季节和天气——将被安全发送至 <strong>OpenAI</strong>，用于生成个性化的正念引导</li>
     <li>生成的文字可能被发送至 <strong>Inworld</strong>（英语语音）或 <strong>Fish Audio</strong>（中文语音），用于生成音频播放</li>
   </ul>
   <p><strong>重要说明：</strong></p>
   <ul>
-    <li>OpenAI 接收用户提供的内容</li>
+    <li>OpenAI 接收用户提供的内容，以及上述简短的位置、时段、季节和天气背景信息</li>
     <li>Inworld 和 Fish Audio 仅接收生成的文字，不接收用户的原始输入</li>
   </ul>
 
@@ -124,7 +124,7 @@
   <h2>7. 第三方服务</h2>
   <p>我们使用以下服务来运营本应用：</p>
   <ul>
-    <li><strong>OpenAI</strong> — 处理用户输入以生成引导内容</li>
+    <li><strong>OpenAI</strong> — 处理用户输入，以及简短的背景信息（大致城市、时段、季节、天气），以生成引导内容</li>
     <li><strong>Inworld</strong> — 将生成的文字转换为音频（英语）</li>
     <li><strong>Fish Audio</strong> — 将生成的文字转换为音频（中文）</li>
     <li><strong>Apple 天气（WeatherKit）</strong> — 接收大致坐标以返回当前天气</li>
