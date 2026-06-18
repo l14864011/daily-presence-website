@@ -79,7 +79,7 @@
 
 <main>
   <h1 class="page-title">Terms of Service</h1>
-  <p class="page-date">Last updated: June 4, 2026</p>
+  <p class="page-date">Last updated: June 17, 2026</p>
 
   <p>Welcome to Presence ("the App"), operated by Xiuling Liu ("we," "us," or "our"). By using the App, you agree to these Terms of Service ("Terms"). If you do not agree, please do not use the App.</p>
 
@@ -89,27 +89,26 @@
   <h2>2. Services and Data Flow</h2>
   <p>The App uses third-party services to provide its functionality:</p>
   <ul>
-    <li><strong>OpenAI</strong>: receives and processes any input you choose to provide (such as text or an image) to generate personalized mindfulness guidance</li>
-    <li><strong>Inworld</strong>: receives generated text (not raw user input) to convert it into audio for playback (English)</li>
-    <li><strong>Fish Audio</strong>: receives generated text (not raw user input) to convert it into audio for playback (Chinese)</li>
-    <li><strong>Open-Meteo</strong>: receives your approximate coordinates to return weather information used by the home-screen widget and, occasionally, your guidance</li>
-    <li><strong>Firebase (Google)</strong>: authentication and limited data storage (account info, preferences, session metadata)</li>
-    <li><strong>Expo</strong>: registers push notification tokens and routes remote notifications through Apple Push Notification service (APNs) and Google Firebase Cloud Messaging (FCM)</li>
+    <li><strong>An AI provider</strong>: receives and processes any input you choose to provide (such as text or an image), along with brief context about your current moment (approximate city, time of day, season, weather), to generate personalized mindfulness guidance</li>
+    <li><strong>Text-to-speech providers</strong>: receive generated text (not raw user input) to convert it into audio for playback</li>
+    <li><strong>A weather provider</strong>: receives your approximate coordinates to return weather information used by the home-screen widget and your guidance</li>
+    <li><strong>An authentication and cloud-storage provider</strong>: sign-in and limited data storage (account info, preferences, session metadata)</li>
+    <li><strong>A push-notification provider</strong>: registers push tokens and routes remote notifications to your device</li>
   </ul>
   <p>These services are used solely to deliver the App's core experience.</p>
 
   <h2>3. User Input and Data Handling</h2>
   <p>To provide guidance:</p>
   <ul>
-    <li>Any input you choose to provide (such as text or an image) is securely sent to OpenAI</li>
-    <li>Generated text may be sent to Inworld or Fish Audio for audio playback</li>
+    <li>Any input you choose to provide (such as text or an image) is securely sent to our AI provider</li>
+    <li>Generated text may be sent to a text-to-speech provider for audio playback</li>
     <li>You may choose to provide text, an image, both, or neither</li>
     <li>We do <strong>not store your input or the generated guidance</strong> after your session is complete</li>
   </ul>
   <p>By using the App, you consent to this processing.</p>
 
   <h2>3a. Location and Notifications</h2>
-  <p>With your permission, the App reads your approximate location for ambient weather context (widget + occasional guidance) and may send you daily reminders that you schedule locally on your device, plus occasional remote notifications. You can revoke either permission in your device Settings at any time.</p>
+  <p>With your permission, the App reads your approximate location to provide weather, time of day, season, and city context (used by the widget and your guidance), and may send you daily reminders that you schedule locally on your device, plus occasional remote notifications. You can revoke either permission in your device Settings at any time.</p>
 
   <h2>4. Use of the App</h2>
   <p>You agree to use the App only for lawful, personal, and non-commercial purposes. You must not misuse the App or interfere with its operation.</p>
