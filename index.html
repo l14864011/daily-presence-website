@@ -32,7 +32,7 @@
       font-family: 'Inter', sans-serif;
       background: var(--cream);
       color: var(--text);
-      overflow-x: hidden;
+      overflow-x: clip;
       -webkit-font-smoothing: antialiased;
     }
     img { display: block; max-width: 100%; }
@@ -180,6 +180,8 @@
     /* reveal on scroll */
     .reveal { opacity: 0; transform: translateY(38px); transition: opacity 1s ease, transform 1s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
+    /* widget section fades only (no transform) so the cards' drop-shadows aren't clipped to the layer */
+    .widget-inner.reveal, .widget-inner.reveal.in { transform: none; }
 
     /* ── INTRO ── */
     .intro { padding: 130px 48px 120px; max-width: 1080px; margin: 0 auto; text-align: center; }
@@ -283,7 +285,7 @@
     .features {
       position: relative; overflow: hidden;
       padding: 110px 48px 120px;
-      background: #EFE4D4;
+      background: #E9EDE2;
     }
     .features > img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
     .features > .veil { position: absolute; inset: 0; z-index: 1; background: rgba(248,244,238,0.42); }
@@ -330,15 +332,25 @@
     .bento-tile.photo .bento-ic svg { stroke: #fff; }
 
     /* ── WIDGET SHOWCASE ── */
-    .widget { padding: 110px 48px; background: #F3EDE8; }
+    .widget { padding: 110px 48px; background: var(--cream); }
     .widget-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; gap: 56px; }
     .widget-copy { flex: 1 1 360px; text-align: left; }
     .widget-copy .s-label { text-align: left; }
     .widget-copy .s-title { margin: 0 0 16px; }
     .widget-copy .s-sub { margin: 0; max-width: 430px; }
-    .widget-shots { flex: 1 1 440px; display: flex; justify-content: center; align-items: center; }
-    .widget-shots img { width: 100%; max-width: 500px; height: auto; align-self: center; transition: transform 0.4s; }
-    .widget-shots img:hover { transform: translateY(-6px); }
+    .widget-shots { flex: 1 1 460px; display: flex; justify-content: center; align-items: center; }
+    .widget-stack { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 18px 22px 34px; }
+    .widget-stack .w-card {
+      display: block; width: 84%; height: auto;
+      filter: drop-shadow(0 16px 26px rgba(42,63,36,0.28));
+      transition: transform 0.5s ease;
+    }
+    .widget-stack .w-card.back  { margin-right: auto; transform: rotate(-5deg); }
+    .widget-stack .w-card.front { margin-left: auto; margin-top: 9%; position: relative; z-index: 2; transform: rotate(3.5deg); }
+    @media (hover: hover) {
+      .widget-stack:hover .w-card.back  { transform: rotate(-6.5deg) translateX(-6px); }
+      .widget-stack:hover .w-card.front { transform: rotate(5.5deg) translateX(6px); }
+    }
 
     /* ── PHILOSOPHY (full-bleed water) ── */
     .philosophy {
@@ -365,6 +377,33 @@
       color: rgba(255,255,255,0.95); max-width: 540px; margin: 0 auto;
       text-shadow: 0 1px 16px rgba(0,0,0,0.18);
     }
+
+    /* ── MADE WITH CARE ── */
+    .care { padding: 120px 48px; background: #E9EDE2; text-align: center; }
+    .care-inner { max-width: 940px; margin: 0 auto; }
+    .care .s-title { margin: 0 auto 16px; }
+    .care-sub {
+      font-size: 17px; color: var(--muted); line-height: 1.8; font-weight: 300;
+      max-width: 600px; margin: 0 auto 62px;
+    }
+    .care-sub strong { color: var(--green); font-weight: 500; }
+    .care-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 820px; margin: 0 auto; }
+    .care-col { position: relative; padding: 0 14px; }
+    .care-col + .care-col::before {
+      content: ''; position: absolute; left: 0; top: 6px; bottom: 6px;
+      width: 1px; background: rgba(58,85,50,0.16);
+    }
+    .care-ic {
+      width: 54px; height: 54px; border-radius: 50%; margin: 0 auto 18px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(58,85,50,0.10);
+    }
+    .care-ic svg { width: 24px; height: 24px; stroke: var(--green); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .care-col h3 {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;
+      font-size: 22px; color: var(--green); margin-bottom: 12px;
+    }
+    .care-col p { font-size: 15px; color: var(--muted); line-height: 1.75; font-weight: 300; max-width: 330px; margin: 0 auto; }
 
     /* ── DOWNLOAD CTA ── */
     .download {
@@ -416,12 +455,16 @@
       .vibe { padding: 110px 24px; }
       .widget { padding: 90px 24px; }
       .widget-inner { flex-direction: column; gap: 0; text-align: center; }
-      .widget-shots { margin-top: -110px; }
+      .widget-shots { flex: none; width: 100%; }
+      .widget-stack { max-width: 400px; padding-top: 0; margin-top: -55px; }
       .widget-copy, .widget-copy .s-label { text-align: center; }
       .widget-copy .s-title, .widget-copy .s-sub { margin-left: auto; margin-right: auto; }
       .vibe-grid { grid-template-columns: 1fr; gap: 44px; max-width: 360px; }
       .vibe-col + .vibe-col::before { display: none; }
       .philosophy, .download { padding: 110px 24px; }
+      .care { padding: 90px 24px; }
+      .care-grid { grid-template-columns: 1fr; gap: 44px; max-width: 360px; }
+      .care-col + .care-col::before { display: none; }
       footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
     }
     @media (max-width: 560px) {
@@ -431,7 +474,9 @@
       .bento { grid-template-columns: 1fr; grid-auto-rows: auto; max-width: 360px; }
       .bento-tile.wide { grid-column: span 1; }
       .widget-shots { flex: none; width: 100%; }
-      .widget-shots img { height: auto; width: 100%; max-width: 460px; }
+    }
+    @media (max-width: 900px) and (orientation: landscape) {
+      .widget-stack { margin-top: -95px; }
     }
   </style>
 </head>
@@ -442,7 +487,7 @@
   <a class="logo" href="/"><img src="assets/logo-mark.png" alt="Presence logo"><span>Presence</span></a>
   <div class="nav-right">
     <a class="nav-link" href="#how">How it works</a>
-    <a class="nav-link" href="xiuling/index.html">Our Story</a>
+    <a class="nav-link" href="xiuling/index.html" target="_blank" rel="noopener">Our Story</a>
     <a class="nav-cta" href="#download">
       <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg>Download
     </a>
@@ -558,6 +603,23 @@
   </div>
 </section>
 
+<!-- WIDGET SHOWCASE -->
+<section class="widget">
+  <div class="widget-inner reveal">
+    <div class="widget-copy">
+      <p class="s-label">Home Screen widget</p>
+      <h2 class="s-title">A gentle nudge, where you'll see it.</h2>
+      <p class="s-sub">The Presence widget meets you with a mindful line — tuned to the weather, the light, and the hour you're in.</p>
+    </div>
+    <div class="widget-shots">
+      <div class="widget-stack">
+        <img class="w-card back" src="assets/widget-sky.png" alt="Presence widget — The sky does not ask the cloud to leave.">
+        <img class="w-card front" src="assets/widget-rain.png?v=3" alt="Presence widget — Listen to the rain as it lands.">
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section class="features">
   <div class="features-inner">
@@ -610,20 +672,6 @@
   </div>
 </section>
 
-<!-- WIDGET SHOWCASE -->
-<section class="widget">
-  <div class="widget-inner reveal">
-    <div class="widget-copy">
-      <p class="s-label">Home Screen widget</p>
-      <h2 class="s-title">A gentle nudge, where you'll see it.</h2>
-      <p class="s-sub">The Presence widget meets you with a mindful line — tuned to the weather, the light, and the hour you're in.</p>
-    </div>
-    <div class="widget-shots">
-      <img src="assets/widget-rain.jpg" alt="Presence widget — Listen to the rain as it lands.">
-    </div>
-  </div>
-</section>
-
 <!-- PHILOSOPHY -->
 <section class="philosophy">
   <img class="bg" src="assets/texture-life.jpg" alt="Morning light through sheer curtains in a quiet room">
@@ -634,6 +682,31 @@
       Presence is designed for mindfulness in real life — while life is already happening.
       Be in this moment, fully. Then let it go.
     </p>
+  </div>
+</section>
+
+<!-- MADE WITH CARE -->
+<section class="care">
+  <div class="care-inner reveal">
+    <p class="s-label center">A foundation of trust</p>
+    <h2 class="s-title">Made with care.</h2>
+    <p class="care-sub">
+      Presence was created by <strong>Xiuling Liu, a licensed psychotherapist and
+      mindfulness teacher</strong> — with real safeguards for your wellbeing and your
+      privacy built into every session.
+    </p>
+    <div class="care-grid">
+      <div class="care-col">
+        <div class="care-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 7.4-7 8.5-4-1.1-7-4.1-7-8.5V6z"/><path d="M9 12l2 2 4-4.2"/></svg></div>
+        <h3>Safe by design</h3>
+        <p>Shaped by clinical experience, with thoughtful safeguards for your wellbeing.</p>
+      </div>
+      <div class="care-col">
+        <div class="care-ic"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div>
+        <h3>Private by design</h3>
+        <p>Your words and photos create your guidance, then they're gone — never stored.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -660,7 +733,7 @@
 <footer>
   <span class="foot-logo">Presence</span>
   <div class="foot-links">
-    <a class="foot-link" href="xiuling/index.html">Our Story</a>
+    <a class="foot-link" href="xiuling/index.html" target="_blank" rel="noopener">Our Story</a>
     <span class="foot-sep">·</span>
     <a class="foot-link" href="privacy.html">Privacy Policy</a>
     <span class="foot-sep">·</span>

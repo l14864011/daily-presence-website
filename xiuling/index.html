@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Presence — Psychotherapy & Meditation with Xiuling Liu</title>
+    <title>Xiuling Liu — Psychotherapy & Mindfulness</title>
     <link rel="canonical" href="https://dailypresence.life/xiuling/">
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-circle.png">
     <link rel="apple-touch-icon" href="assets/favicon-circle.png">
@@ -16,7 +16,7 @@
         :root {
             --sage:       #B4C0AA;
             --sage-dark:  #8A9E82;
-            --cream:      #F4F0E8;
+            --cream:      #FAF7F3;
             --text-green: #4A5740;
             --text-body:  #5C6852;
             --text-muted: #7A8870;
@@ -33,8 +33,8 @@
 
         /* ─── NAV ─────────────────────────────────────────────── */
         .site-nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            display: flex; align-items: center; justify-content: space-between;
+            position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: flex-end;
             padding: 22px 48px;
             transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
         }
@@ -57,7 +57,7 @@
         .nav-links a {
             font-size: 13px; font-weight: 400;
             letter-spacing: 0.07em; text-transform: uppercase;
-            color: rgba(232,223,200,0.88);
+            color: var(--cream);
             text-decoration: none; transition: color 0.2s;
         }
         .site-nav.scrolled .nav-links a { color: var(--text-muted); }
@@ -66,7 +66,7 @@
         .nav-cta {
             font-size: 13px; font-weight: 400;
             letter-spacing: 0.07em; text-transform: uppercase;
-            color: rgba(232,223,200,0.88) !important;
+            color: var(--cream) !important;
             border: 1px solid rgba(232,223,200,0.4);
             padding: 7px 18px; border-radius: 2px;
             text-decoration: none; transition: background 0.2s, color 0.2s, border-color 0.2s;
@@ -107,7 +107,7 @@
         }
         .hero-text {
             position: relative; z-index: 10;
-            text-align: center; color: #E8DFC8;
+            text-align: center; color: var(--cream);
             padding: 0 40px;
         }
         .hero-line1 {
@@ -283,7 +283,7 @@
         .story-body p.closing {
             font-family: 'Playfair Display', serif;
             font-style: italic; font-size: clamp(14px, 1.4vw, 16px);
-            color: var(--text-muted); font-weight: 400;
+            color: var(--text-green); font-weight: 400;
             line-height: 1.7;
         }
         .story-divider {
@@ -318,7 +318,7 @@
         .split-body p.closing {
             font-family: 'Playfair Display', serif;
             font-style: italic; font-size: clamp(14px, 1.4vw, 16px);
-            color: var(--text-muted); font-weight: 400;
+            color: var(--text-green); font-weight: 400;
             line-height: 1.7; margin-top: 4px;
         }
         .split-btn {
@@ -476,7 +476,6 @@
 
 <!-- ─── NAV ───────────────────────────────────────────────────────── -->
 <nav class="site-nav" id="site-nav">
-    <a href="#" class="nav-logo">Daily Presence</a>
     <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
@@ -494,7 +493,7 @@
     <div class="hero-text">
         <p class="hero-line1">Presence.</p>
         <p class="hero-line2">Compassion. Change</p>
-        <p class="hero-line3">Psychotherapy &amp; Meditation with Xiuling Liu</p>
+        <p class="hero-line3">Psychotherapy &amp; Mindfulness with Xiuling Liu</p>
     </div>
     <div class="scroll-indicator">
         <span>Scroll</span>
@@ -514,14 +513,14 @@
         <img src="assets/profile.jpeg" alt="Xiuling Liu">
     </div>
     <div class="split-content right-content">
-        <p class="split-tag">Psychotherapist &nbsp;·&nbsp; Meditation Teacher &nbsp;·&nbsp; Chicago, IL</p>
+        <p class="split-tag">Psychotherapist &nbsp;·&nbsp; Mindfulness Teacher &nbsp;·&nbsp; Chicago, IL</p>
         <h2 class="split-heading">My Story</h2>
         <div class="story-body">
             <p class="lead">When I was a little girl, I loved spending hours by the creek near my home. I would slip off my shoes, sink my feet into the cool, flowing water, and watch sunlight shimmer across the surface.</p>
             <p>The water moved gently, never clinging to a single pebble or leaf.</p>
             <p>I remember feeling a quiet joy in those moments — not needing to be anywhere else, not wishing for anything different.</p>
             <p>I didn't know it then, but I was practicing the art of being present.</p>
-            <p>My path as a meditation teacher and psychotherapist grew from that early connection to stillness and flow — from learning that peace is not something we achieve, but something we notice when we truly pay attention.</p>
+            <p>My path as a mindfulness teacher and psychotherapist grew from that early connection to stillness and flow — from learning that peace is not something we achieve, but something we notice when we truly pay attention.</p>
             <p>My work today is rooted in that same simple truth: that awareness, compassion, and presence can transform the way we live, love, and heal.</p>
             <p class="closing">My mission is to help others reconnect with that inner stillness — the same quiet stream of life that has always been there, waiting to be felt.</p>
         </div>
@@ -545,7 +544,7 @@
         </div>
         <div class="offering-item">
             <span class="offering-number">03</span>
-            <p class="offering-name">Individual Meditation Lessons</p>
+            <p class="offering-name">Individual Mindfulness Lessons</p>
             <a href="#meditation" class="offering-link">Learn more</a>
         </div>
     </div>
@@ -563,7 +562,7 @@
             <p class="closing">Healing is not about becoming someone new. It's about coming home to yourself.</p>
             <div class="meta">
                 <div class="meta-label">Education</div>
-                <div class="meta-value">MA in Social Work&nbsp;&nbsp;University of Chicago</div>
+                <div class="meta-value">MA in Clinical Social Work&nbsp;&nbsp;University of Chicago</div>
             </div>
             <a href="consultation_request.html" class="split-btn">Book a free consult</a>
         </div>
@@ -607,10 +606,10 @@
 <div class="split split-image-right fade-in" id="meditation">
     <div class="split-content">
         <p class="split-tag">One-on-One &nbsp;·&nbsp; Personalized</p>
-        <h2 class="split-heading">Individual Meditation Lessons</h2>
+        <h2 class="split-heading">Individual Mindfulness Lessons</h2>
         <div class="split-body">
             <p class="lead">Every person's path into mindfulness is unique. In these one-on-one sessions, I offer a space to slow down, explore stillness, and reconnect with yourself in a way that feels personal and grounded.</p>
-            <p>Together, we'll find practices that meet you where you are — whether you're seeking calm amidst stress, deeper awareness, or a steadier connection to the present moment. Sessions may include guided meditations, mindful inquiry, or simple awareness practices woven naturally into daily life.</p>
+            <p>Together, we'll find practices that meet you where you are — whether you're seeking calm amidst stress, deeper awareness, or a steadier connection to the present moment. Sessions may include guided mindfulness practices, mindful inquiry, or simple awareness practices woven naturally into daily life.</p>
             <p class="closing">Stillness is not something you find. It's something you return to.</p>
             <a href="consultation_request.html" class="split-btn">Book a free consult</a>
         </div>
@@ -651,9 +650,7 @@
     </div>
     <div class="footer-bottom">
         <p>
-            © 2026 Daily Presence
-            <span class="footer-sep">·</span>
-            Xiuling Liu, LSW
+            © 2026 Xiuling Liu, LSW
             <span class="footer-sep">·</span>
             <a href="privacy.html">Privacy</a>
             <span class="footer-sep">·</span>
