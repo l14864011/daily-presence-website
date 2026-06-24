@@ -498,10 +498,10 @@
 <section class="hero" id="top">
   <div class="hero-slides" id="slides">
     <img class="hero-slide active" src="assets/moment-coffee.jpg"  alt="A quiet moment with morning coffee" fetchpriority="high" style="object-position: 82% center">
-    <img class="hero-slide" src="assets/moment-dog.jpg"     alt="Walking the dog" style="object-position: 70% center">
     <img class="hero-slide" src="assets/moment-kids.jpg"    alt="Time with the kids" style="object-position: 72% center">
     <img class="hero-slide" src="assets/moment-friends.jpg" alt="Sitting with friends" style="object-position: 50% center">
     <img class="hero-slide" src="assets/moment-tennis.jpg"  alt="Playing tennis" style="object-position: 60% center">
+    <img class="hero-slide" src="assets/moment-dog.jpg"     alt="Walking the dog" style="object-position: 70% center">
   </div>
   <div class="hero-scrim"></div>
 
@@ -882,7 +882,7 @@
 
   /* ── Hero slideshow (cross-fade) ── */
   const slides = Array.from(document.querySelectorAll('.hero-slide'));
-  const captions = ['Morning coffee', 'Walking the dog', 'With the kids', 'With friends', 'Playing tennis'];
+  const captions = ['Morning coffee', 'With the kids', 'With friends', 'Playing tennis', 'Walking the dog'];
   const captionEl = document.getElementById('caption-text');
   let si = 0;
   setInterval(() => {
