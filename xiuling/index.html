@@ -96,11 +96,18 @@
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
         }
-        .hero-video {
+        .hero-poster {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
             object-fit: cover; object-position: center;
         }
+        .hero-video {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            opacity: 0; transition: opacity 0.8s ease;
+        }
+        .hero-video.is-playing { opacity: 1; }
         .hero-overlay {
             position: absolute; inset: 0;
             background: rgba(80, 140, 80, 0.32);
@@ -486,7 +493,8 @@
 
 <!-- ─── HERO ──────────────────────────────────────────────────────── -->
 <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
+    <img class="hero-poster" src="assets/hero-poster.jpg" alt="" aria-hidden="true">
+    <video class="hero-video" preload="auto" autoplay muted loop playsinline>
         <source src="assets/hero.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
@@ -677,6 +685,14 @@
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Hero: crossfade the video in over the poster once it starts playing
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+        const revealHero = () => heroVideo.classList.add('is-playing');
+        if (heroVideo.readyState >= 3) revealHero();
+        heroVideo.addEventListener('playing', revealHero, { once: true });
+    }
 </script>
 
 </body>
