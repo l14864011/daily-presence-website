@@ -1,1 +1,5 @@
 .DS_Store
+
+# Archive of original PNG sources for the widget cards, kept for re-encoding
+# at a different quality. Not served; not needed at build time.
+assets-original-png/
