@@ -991,9 +991,28 @@
      ever drive traffic from there. */
   (function () {
     var ua = navigator.userAgent || '';
-    if (/BytedanceWebview|musical_ly|TikTok/i.test(ua)) {
-      document.body.classList.add('inapp');
+    if (!/BytedanceWebview|musical_ly|TikTok/i.test(ua)) return;
+
+    /* Android can escape the webview: an intent:// URL naming Chrome hands the
+       link to the real browser, and `browser_fallback_url` covers phones with
+       no Chrome. iOS has no equivalent, so it keeps the banner instead.
+       Wired to the badge tap, never to page load — bouncing someone into
+       another browser the moment they land reads as broken. */
+    if (/Android/i.test(ua)) {
+      document.querySelectorAll('a.badge').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var url = a.href;
+          e.preventDefault();
+          window.location.href =
+            'intent://' + url.replace(/^https?:\/\//, '') +
+            '#Intent;scheme=https;package=com.android.chrome;' +
+            'S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+        });
+      });
+      return;                       // no banner needed, the tap now works
     }
+
+    document.body.classList.add('inapp');
   })();
 </script>
 </body>
