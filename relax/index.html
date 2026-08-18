@@ -4,14 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ─────────────────────────────────────────────────────────────────
-       BEFORE THIS PAGE GOES LIVE: paste the Kit form action URL below.
-       In Kit: Grow → Landing Pages & Forms → your form → Embed → HTML.
-       Copy the URL out of the <form action="..."> it gives you and put it
-       in KIT_FORM_ACTION in the script at the bottom of this file.
-       Until that's done the form shows a notice instead of failing.
-       ───────────────────────────────────────────────────────────────── -->
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSGQ24JQ9S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -315,7 +307,7 @@
         <p>
           Short, followable practices like this one — usually under five minutes.
           Written by me, a licensed psychotherapist. No promotions, and you can
-          leave whenever you like.
+          leave whenever you like. You'll get a confirmation email first.
         </p>
         <form class="signup" id="signup" method="post" novalidate>
           <label for="email">Your email</label>
@@ -369,26 +361,52 @@
      Paste the form action URL from Kit's HTML embed here. It looks like:
      https://app.kit.com/forms/1234567/subscriptions
      Until it's filled in, the form explains itself instead of silently failing. */
-  var KIT_FORM_ACTION = '';
+  var KIT_FORM_ACTION = 'https://app.kit.com/forms/9817844/subscriptions';
 
   (function () {
     var form = document.getElementById('signup');
     var note = document.getElementById('formnote');
+    var button = form.querySelector('button');
+    var sending = false;
+
+    form.action = KIT_FORM_ACTION;
 
     function say(msg) { note.textContent = msg; note.hidden = false; }
 
-    if (KIT_FORM_ACTION) { form.action = KIT_FORM_ACTION; }
-
     form.addEventListener('submit', function (e) {
-      if (!KIT_FORM_ACTION) {
-        e.preventDefault();
-        say('The signup isn’t connected yet — check back shortly.');
-        return;
-      }
-      if (!form.email.value || form.email.value.indexOf('@') < 1) {
+      var email = form.email_address.value.trim();
+
+      if (!email || email.indexOf('@') < 1) {
         e.preventDefault();
         say('That email doesn’t look right — please check it.');
+        return;
       }
+      if (sending) { e.preventDefault(); return; }
+
+      /* Post in the background so the reader stays on the page instead of being
+         thrown to Kit's own confirmation screen. If the request can't complete
+         (offline, CORS, an ad blocker), fall through to the plain form submit —
+         that always works, it just navigates away. */
+      e.preventDefault();
+      sending = true;
+      button.disabled = true;
+      button.textContent = 'Sending…';
+
+      fetch(KIT_FORM_ACTION, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (r) {
+          if (!r.ok) { throw new Error('http ' + r.status); }
+          form.reset();
+          button.textContent = 'Check your email';
+          say('Almost there — open the confirmation email and click the link. The practice arrives right after.');
+        })
+        .catch(function () {
+          sending = false;
+          form.submit();          // native post; leaves the page but still works
+        });
     });
   })();
 
