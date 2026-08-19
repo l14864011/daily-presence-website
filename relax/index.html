@@ -436,7 +436,7 @@
           if (!r.ok) { throw new Error('http ' + r.status); }
           form.reset();
           button.textContent = 'Check your email';
-          say('Almost there — open the confirmation email and click the link.');
+          say('Almost there — open the confirmation email and click the link. Don’t see it? Check Promotions, Social or Spam.');
         })
         .catch(function () {
           sending = false;
