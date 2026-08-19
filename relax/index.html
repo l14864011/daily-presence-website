@@ -13,7 +13,7 @@
   </script>
 
   <title>Paired Muscle Relaxation — A Guided Practice | Presence</title>
-  <meta name="description" content="A guided paired muscle relaxation practice you can follow with your eyes closed. Tense for five seconds, release all at once, notice the difference. Free, from a licensed psychotherapist.">
+  <meta name="description" content="A guided paired muscle relaxation practice you can follow with your eyes closed. Tense for five seconds, let go all at once, notice the difference. Free, from a licensed psychotherapist.">
   <link rel="canonical" href="https://dailypresence.life/relax/">
   <link rel="icon" type="image/png" href="../favicon.png">
   <meta name="theme-color" content="#3A5532">
@@ -21,13 +21,13 @@
 
   <meta property="og:site_name" content="Presence">
   <meta property="og:title" content="Paired Muscle Relaxation — A Guided Practice">
-  <meta property="og:description" content="Tense for five seconds, release all at once, notice the difference. A free guided practice from a licensed psychotherapist.">
+  <meta property="og:description" content="Tense for five seconds, let go all at once, notice the difference. A free guided practice from a licensed psychotherapist.">
   <meta property="og:image" content="https://dailypresence.life/assets/paired-muscle-relaxation-poster.jpg">
   <meta property="og:url" content="https://dailypresence.life/relax/">
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Paired Muscle Relaxation — A Guided Practice">
-  <meta name="twitter:description" content="Tense for five seconds, release all at once, notice the difference.">
+  <meta name="twitter:description" content="Tense for five seconds, let go all at once, notice the difference.">
   <meta name="twitter:image" content="https://dailypresence.life/assets/paired-muscle-relaxation-poster.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,6 +43,7 @@
       --cream:  #FAF7F3;
       --text:   #2C2C28;
       --muted:  #7A7A70;
+      --line:   rgba(58,85,50,0.12);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -51,157 +52,197 @@
       font-family: 'Inter', sans-serif;
       background: var(--cream);
       color: var(--text);
-      line-height: 1.65;
+      font-weight: 300;
+      line-height: 1.75;
       -webkit-font-smoothing: antialiased;
       overflow-x: clip;
     }
     img, video { display: block; max-width: 100%; }
 
+    /* ── shared type, matching the home page ── */
+    .s-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 2.8px;
+      text-transform: uppercase; color: var(--sage); margin: 0 0 16px;
+    }
+    .s-title {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;
+      color: var(--green); line-height: 1.1; letter-spacing: -0.3px; margin: 0;
+    }
+    .s-sub { font-size: 17px; color: var(--muted); line-height: 1.8; font-weight: 300; margin: 0; }
+
     /* ── in-app browser bar (TikTok) ── */
     #inapp-bar {
       display: none;
-      position: fixed; left: 0; right: 0; top: 0; z-index: 999;
-      background: var(--green); color: #fff;
-      padding: 12px 16px calc(12px + env(safe-area-inset-top)) 16px;
-      font-size: 14px; line-height: 1.45; text-align: center;
+      position: fixed; left: 0; right: 0; top: 0; z-index: 120;
+      background: var(--green-d); color: #fff;
+      padding: 11px 16px calc(11px + env(safe-area-inset-top)) 16px;
+      font-size: 13.5px; line-height: 1.45; text-align: center; font-weight: 400;
     }
     #inapp-bar .dots {
       display: inline-block; padding: 0 5px; border-radius: 4px;
-      background: rgba(255,255,255,0.18); font-weight: 700; letter-spacing: 1px;
+      background: rgba(255,255,255,0.18); font-weight: 600; letter-spacing: 1px;
     }
-    body.inapp { padding-top: 78px; }
     body.inapp #inapp-bar { display: block; }
 
     /* ── header ── */
     .topbar {
       display: flex; align-items: center; justify-content: space-between;
-      max-width: 1140px; margin: 0 auto; padding: 22px 24px;
+      max-width: 1120px; margin: 0 auto; padding: 26px 28px 8px;
     }
     .brand {
-      font-family: 'Playfair Display', serif; font-weight: 600;
-      font-size: 21px; color: var(--green); text-decoration: none; letter-spacing: .2px;
+      display: inline-flex; flex-direction: column; align-items: center; gap: 3px;
+      text-decoration: none; line-height: 1;
     }
-    .back { font-size: 14px; color: var(--muted); text-decoration: none; }
+    .brand img { width: 34px; height: auto; object-fit: contain; }
+    .brand span {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;
+      font-size: 19px; color: var(--green); letter-spacing: .3px;
+    }
+    .back { font-size: 13.5px; color: var(--muted); text-decoration: none; font-weight: 400; }
     .back:hover { color: var(--green); }
 
     /* ── layout ── */
-    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px 90px; }
-    .lede { max-width: 660px; padding: 18px 0 34px; }
-    .kicker {
-      font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--sage); font-weight: 500; margin: 0 0 14px;
-    }
-    h1 {
-      font-family: 'Playfair Display', serif; font-weight: 600;
-      font-size: clamp(34px, 5.2vw, 50px); line-height: 1.1;
-      margin: 0 0 16px; letter-spacing: -.01em;
-    }
-    .sub { font-size: 19px; color: #4A4A42; margin: 0; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px 40px; }
+    .lede { max-width: 620px; padding: 26px 0 34px; }
+    .lede .s-title { font-size: clamp(32px, 4.6vw, 50px); margin-bottom: 18px; }
 
     .cols { display: grid; grid-template-columns: 1fr; gap: 40px; }
     @media (min-width: 940px) {
-      .cols { grid-template-columns: minmax(0,1.45fr) minmax(320px,1fr); gap: 52px; align-items: start; }
+      .cols { grid-template-columns: minmax(0,1.5fr) minmax(300px,1fr); gap: 56px; align-items: start; }
       .side { position: sticky; top: 28px; }
     }
 
     /* ── video ── */
     .player {
-      background: #0B1511; border-radius: 18px; overflow: hidden;
-      box-shadow: 0 18px 50px -18px rgba(44,44,40,.35);
+      background: var(--green-d); border-radius: 22px; overflow: hidden;
+      box-shadow: 0 30px 60px -30px rgba(42,63,36,0.45);
     }
     .player video { width: 100%; height: auto; }
-    .player-note {
-      font-size: 14px; color: var(--muted); margin: 12px 2px 0;
-    }
+    .player-note { font-size: 14px; color: var(--muted); margin: 14px 4px 0; }
 
     /* ── prose ── */
-    .prose { margin-top: 44px; max-width: 620px; }
+    .prose { margin-top: 52px; max-width: 560px; }
     .prose h2 {
-      font-family: 'Playfair Display', serif; font-weight: 600;
-      font-size: 27px; line-height: 1.25; margin: 40px 0 12px;
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;
+      font-size: 25px; color: var(--green); line-height: 1.25; margin: 44px 0 14px;
     }
     .prose h2:first-child { margin-top: 0; }
-    .prose p { margin: 0 0 16px; }
-    .prose ol, .prose ul { margin: 0 0 16px; padding-left: 22px; }
-    .prose li { margin-bottom: 9px; }
-    .prose strong { font-weight: 600; }
+    .prose p { margin: 0 0 14px; font-size: 16px; }
+    .prose ol { margin: 0; padding-left: 20px; }
+    .prose li { margin-bottom: 10px; font-size: 16px; }
+    .prose strong { font-weight: 500; color: var(--text); }
 
     .care {
-      background: var(--beige); border-radius: 14px;
-      padding: 22px 24px; margin: 26px 0;
+      background: var(--beige); border-radius: 16px;
+      padding: 22px 26px; margin: 30px 0 0;
     }
-    .care h3 {
-      font-family: 'Playfair Display', serif; font-style: italic;
-      font-weight: 500; font-size: 19px; margin: 0 0 10px;
+    .care p {
+      font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.7;
     }
-    .care ul { margin: 0; padding-left: 20px; }
-    .care li { margin-bottom: 8px; font-size: 15.5px; }
-    .care li:last-child { margin-bottom: 0; }
+    .care strong { font-weight: 600; color: var(--green-d); }
 
-    /* ── side cards ── */
-    .card {
-      background: #fff; border-radius: 18px; padding: 28px 26px;
-      box-shadow: 0 10px 34px -16px rgba(44,44,40,.28);
-      margin-bottom: 22px;
+    /* ── signup, shared look ── */
+    .signup { display: flex; gap: 9px; flex-wrap: wrap; }
+    .signup input[type="email"] {
+      flex: 1 1 170px; min-width: 0;
+      font-family: inherit; font-size: 15px; font-weight: 300; color: var(--text);
+      padding: 12px 15px; border: 1px solid var(--line); border-radius: 100px;
+      background: #fff; transition: border-color .25s;
     }
-    .card h2 {
-      font-family: 'Playfair Display', serif; font-weight: 600;
-      font-size: 24px; line-height: 1.25; margin: 0 0 10px;
-    }
-    .card p { margin: 0 0 18px; font-size: 15.5px; color: #4A4A42; }
-    .card p:last-child { margin-bottom: 0; }
-
-    form.signup { display: flex; flex-direction: column; gap: 10px; }
-    form.signup label {
-      font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); font-weight: 500;
-    }
-    form.signup input[type="email"] {
-      font-family: inherit; font-size: 16px; color: var(--text);
-      padding: 13px 15px; border: 1px solid #DDD6C9; border-radius: 11px;
-      background: var(--cream);
-    }
-    form.signup input[type="email"]:focus {
-      outline: 2px solid var(--sage); outline-offset: 1px; border-color: var(--sage);
-    }
-    form.signup button {
-      font-family: inherit; font-size: 16px; font-weight: 600; color: #fff;
-      background: var(--green); border: none; border-radius: 11px;
-      padding: 14px 18px; cursor: pointer;
+    .signup input[type="email"]::placeholder { color: var(--muted); }
+    .signup input[type="email"]:focus { outline: none; border-color: var(--sage); }
+    .signup button {
+      font-family: inherit; font-size: 14.5px; font-weight: 500; color: #fff;
+      background: var(--green); border: none; border-radius: 100px;
+      padding: 12px 22px; cursor: pointer; white-space: nowrap;
       transition: background .25s, transform .25s;
+      box-shadow: 0 6px 20px rgba(58,85,50,0.24);
     }
-    form.signup button:hover { background: var(--green-d); transform: translateY(-1px); }
-    form.signup button:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
-    .fineprint { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
-    .formnote {
-      font-size: 14px; color: var(--green); background: var(--beige);
-      border-radius: 10px; padding: 11px 13px; margin: 10px 0 0;
-    }
+    .signup button:hover { background: var(--green-d); transform: translateY(-1px); }
+    .signup button:focus-visible, .signup input:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+    .formnote { font-size: 13.5px; color: var(--green); margin: 12px 0 0; line-height: 1.6; }
     .formnote[hidden] { display: none; }
 
-    .store-row { display: flex; flex-wrap: wrap; gap: 11px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 11px;
-      background: var(--green); color: #fff; text-decoration: none;
-      padding: 11px 18px; border-radius: 13px;
-      transition: transform .25s, box-shadow .25s, background .25s;
-      box-shadow: 0 6px 22px rgba(58,85,50,0.30);
+    /* ── side cards (desktop) ── */
+    .card {
+      background: #fff; border-radius: 22px; padding: 28px 26px;
+      box-shadow: 0 20px 44px -26px rgba(42,63,36,0.34);
+      margin-bottom: 20px;
     }
-    .badge:hover { transform: translateY(-3px); background: var(--green-d); box-shadow: 0 12px 30px rgba(58,85,50,0.38); }
+    .card h2 {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500;
+      font-size: 23px; color: var(--green); line-height: 1.25; margin: 0 0 10px;
+    }
+    .card p { font-size: 14.5px; color: var(--muted); margin: 0 0 18px; line-height: 1.7; }
+    .fineprint { font-size: 12.5px; color: var(--muted); margin: 11px 0 0; }
+
+    .store-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green); color: #fff; text-decoration: none;
+      padding: 10px 16px; border-radius: 100px;
+      transition: transform .25s, background .25s;
+      box-shadow: 0 6px 20px rgba(58,85,50,0.26);
+    }
+    .badge:hover { transform: translateY(-2px); background: var(--green-d); }
     .badge:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
-    .badge svg { flex-shrink: 0; }
     .badge-txt { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
-    .badge-txt small { font-size: 10px; font-weight: 400; letter-spacing: .3px; opacity: .92; }
-    .badge-txt span { font-size: 17px; font-weight: 600; letter-spacing: .2px; margin-top: 1px; }
+    .badge-txt small { font-size: 9.5px; font-weight: 400; letter-spacing: .3px; opacity: .9; }
+    .badge-txt span { font-size: 15.5px; font-weight: 500; letter-spacing: .2px; margin-top: 1px; }
+
+    /* ── phone: signup floats above the video ── */
+    .signup-bar { display: none; }
+    @media (max-width: 939px) {
+      .signup-bar {
+        display: block;
+        position: fixed; left: 0; right: 0; top: 0; z-index: 110;
+        background: rgba(250,247,243,0.92);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--line);
+        padding: 11px 18px calc(11px + env(safe-area-inset-bottom) * 0);
+      }
+      body.inapp .signup-bar { top: 62px; }
+      .signup-bar .bar-label {
+        font-size: 11px; font-weight: 600; letter-spacing: 2.2px;
+        text-transform: uppercase; color: var(--sage);
+        margin: 0 0 8px; text-align: center;
+      }
+      .signup-bar .signup { max-width: 460px; margin: 0 auto; flex-wrap: nowrap; }
+      .signup-bar input[type="email"] { font-size: 15px; padding: 10px 14px; }
+      .signup-bar button { padding: 10px 18px; font-size: 14px; }
+      .signup-bar .formnote { text-align: center; max-width: 460px; margin: 9px auto 0; }
+      body { padding-top: 92px; }
+      body.inapp { padding-top: 154px; }
+      .side .card.email-card { display: none; }   /* the bar covers it on phones */
+    }
+
+    /* ── icons: thin, symbolic, never decorative filler ── */
+    .ic {
+      width: 19px; height: 19px; flex-shrink: 0;
+      stroke: var(--sage); fill: none;
+      stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .prose h2 { display: flex; align-items: center; gap: 11px; }
+    .care { display: flex; gap: 13px; align-items: flex-start; }
+    .care .ic { stroke: var(--green); margin-top: 3px; }
+    .benefits {
+      list-style: none; margin: 0 0 20px; padding: 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .benefits li {
+      display: flex; align-items: center; gap: 11px;
+      font-size: 14px; color: var(--muted); line-height: 1.5;
+    }
+    .benefits .ic { width: 17px; height: 17px; }
 
     /* ── footer ── */
     footer {
-      border-top: 1px solid #E4DCCF; margin-top: 70px; padding-top: 26px;
-      max-width: 1140px; margin-left: auto; margin-right: auto;
-      padding-left: 24px; padding-right: 24px; padding-bottom: 60px;
+      border-top: 1px solid var(--line); margin-top: 64px;
+      max-width: 1120px; margin-left: auto; margin-right: auto;
+      padding: 26px 28px 60px;
     }
-    .disclaimer { font-size: 13.5px; color: var(--muted); max-width: 640px; margin: 0 0 14px; }
-    .footlinks { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; }
+    .disclaimer { font-size: 13px; color: var(--muted); max-width: 620px; margin: 0 0 14px; line-height: 1.7; }
+    .footlinks { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; }
     .footlinks a { color: var(--muted); text-decoration: none; }
     .footlinks a:hover { color: var(--green); }
 
@@ -216,20 +257,29 @@
   To install the app, tap <span class="dots">•••</span> above and choose <strong>Open in browser</strong>.
 </div>
 
+<!-- Phone only: the ask rides above the practice -->
+<div class="signup-bar">
+  <p class="bar-label">A mindfulness practice every Sunday</p>
+  <form class="signup" method="post" novalidate>
+    <input type="email" name="email_address" placeholder="Your email" autocomplete="email" aria-label="Your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <p class="formnote" hidden></p>
+</div>
+
 <div class="topbar">
-  <a class="brand" href="/">Presence</a>
-  <a class="back" href="/">← Back to Presence</a>
+  <a class="brand" href="/"><img src="../assets/logo-mark.png" alt=""><span>Presence</span></a>
+  <a class="back" href="/">← Presence</a>
 </div>
 
 <div class="wrap">
 
   <div class="lede">
-    <p class="kicker">Guided practice · 60 seconds a round</p>
-    <h1>Paired muscle relaxation</h1>
-    <p class="sub">
-      Tense a muscle group hard for five seconds, then drop it all at once and
-      notice the difference. Follow the ring — you don't need to watch the screen
-      once you know the rhythm.
+    <p class="s-label">Guided practice</p>
+    <h1 class="s-title">Paired muscle relaxation</h1>
+    <p class="s-sub">
+      Tense, let go all at once, notice the difference. Follow the ring —
+      once you have the rhythm you can close your eyes.
     </p>
   </div>
 
@@ -241,97 +291,90 @@
           src="../assets/paired-muscle-relaxation.mp4"
           poster="../assets/paired-muscle-relaxation-poster.jpg"
           controls loop playsinline preload="metadata"
-          aria-label="Paired muscle relaxation, one full round through four muscle groups">
+          aria-label="Paired muscle relaxation, one round through four muscle groups">
           Your browser can't play this video.
           <a href="../assets/paired-muscle-relaxation.mp4">Open it directly</a>.
         </video>
       </div>
       <p class="player-note">
-        One full round through four muscle groups, with a bell at each change.
-        It loops — let it run for as long as you're practising.
+        One round through four muscle groups, a bell at each change.
       </p>
 
       <div class="prose">
 
-        <h2>How to do it</h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="3.5" r="1.6" fill="currentColor" stroke="none"/></svg>How to do it</h2>
         <ol>
-          <li><strong>Squeeze</strong> the muscle group firmly for five seconds, breathing in.</li>
-          <li><strong>Let go all at once</strong> as you breathe out, and say the word <em>relax</em> to yourself.</li>
-          <li><strong>Stay with it</strong> for ten seconds and notice how different the muscle feels now.</li>
-          <li>Move to the next group and repeat: face, then shoulders and hands, then stomach, then legs and feet.</li>
+          <li><strong>Squeeze</strong> the muscle group as hard as you can for five seconds, breathing in.</li>
+          <li><strong>Let go all at once</strong> as you breathe out. Say <em>relax</em> to yourself.</li>
+          <li><strong>Stay ten seconds</strong> and notice how different it feels.</li>
+          <li>Move on: face, then shoulders and hands, then stomach, then legs and feet.</li>
         </ol>
         <p>
-          The sudden release is the part that matters. Easing off slowly feels
-          gentler but it blunts the contrast, and the contrast is the whole
-          mechanism — it's how your body learns to recognise tension in the first
-          place.
+          The sudden release is what matters. Easing off slowly blunts the
+          contrast — and the contrast is how your body learns to recognise
+          tension at all.
         </p>
 
         <div class="care">
-          <h3>Before you start</h3>
-          <ul>
-            <li>Tense firmly, but never to the point of cramping or pain.</li>
-            <li>Skip any area that's injured, inflamed, or recovering.</li>
-            <li>Keep breathing throughout — don't hold your breath during the squeeze.</li>
-            <li>Sitting or lying down both work. Lying down usually goes deeper.</li>
-          </ul>
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5"/><circle cx="12" cy="16" r=".9" fill="currentColor" stroke="none"/></svg>
+          <p>
+            <strong>Before you start.</strong> Tense firmly, never to cramping or pain.
+            Skip anywhere injured. Keep breathing throughout. Sitting or lying down both
+            work — lying down usually goes deeper.
+          </p>
         </div>
 
-        <h2>How often</h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6"/><path d="M20 12a8 8 0 0 1-13.7 5.6"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg>How often</h2>
         <p>
-          A full session is ten to twenty minutes, so let the video loop rather
-          than doing a single round. Practise daily for the first two weeks —
-          ideally twice, morning and evening — then a few times a week to keep it.
-        </p>
-        <p>
-          It's a skill, not a one-off. You're training your body to tell tense
-          from relaxed, and that only comes from repetition. Most people notice
-          the difference somewhere in the second week.
+          A full session is ten to twenty minutes, so let it loop rather than doing
+          one round. Daily for the first two weeks — ideally morning and evening —
+          then a few times a week to keep it. Most people notice the difference
+          somewhere in the second week.
         </p>
 
-        <h2>Where this comes from</h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5S10 4.5 4 4.5v13c6 0 8 2 8 2s2-2 8-2v-13c-6 0-8 2-8 2z"/><path d="M12 6.5v13"/></svg>Where it comes from</h2>
         <p>
-          The tense-and-release sequence is standard progressive muscle relaxation,
-          shortened to four muscle groups — the briefest version with research
-          behind it. Pairing the release with the word <em>relax</em> comes from
-          dialectical behaviour therapy, where it's taught as part of the TIPP
-          distress tolerance skills.
+          Standard progressive muscle relaxation, shortened to the four-group version
+          that still has research behind it. Pairing the release with the word
+          <em>relax</em> comes from dialectical behaviour therapy.
         </p>
       </div>
     </div>
 
     <aside class="side">
 
-      <div class="card">
-        <h2>One practice, every Sunday</h2>
+      <div class="card email-card">
+        <h2>A mindfulness practice every Sunday</h2>
         <p>
-          Short, followable practices like this one — usually under five minutes.
-          Written by me, a licensed psychotherapist. No promotions, and you can
-          leave whenever you like. You'll get a confirmation email first.
+          One short practice a week, from a licensed psychotherapist.
+          Under five minutes. Leave any time.
         </p>
-        <form class="signup" id="signup" method="post" novalidate>
-          <label for="email">Your email</label>
-          <input type="email" id="email" name="email_address" placeholder="you@example.com" autocomplete="email" required>
-          <button type="submit">Send me the Sunday practice</button>
+        <form class="signup" method="post" novalidate>
+          <input type="email" name="email_address" placeholder="Your email" autocomplete="email" aria-label="Your email" required>
+          <button type="submit">Subscribe</button>
         </form>
-        <p class="fineprint">One email a week. Unsubscribe in one click.</p>
-        <p class="formnote" id="formnote" hidden></p>
+        <p class="fineprint">You'll get a confirmation email first.</p>
+        <p class="formnote" hidden></p>
       </div>
 
       <div class="card">
-        <h2>When a minute is all you have</h2>
+        <h2>Come back to Presence, wherever you go</h2>
         <p>
-          Presence writes you a two-minute guided practice for whatever you're
-          actually doing right now — commuting, before a hard conversation, lying
-          awake — and speaks it to you. Nothing pre-recorded. Free to begin.
+          A two-minute personalized mindfulness practice for whatever you need,
+          and whatever you're doing right now.
         </p>
+        <ul class="benefits">
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 14c3.5 0 3.5-5 7-5s3.5 5 7 5 3.5-3 6-3"/></svg>Ease everyday stress</li>
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>Quiet anxious thinking</li>
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg>Find the joy in your day again</li>
+        </ul>
         <div class="store-row">
           <a class="badge" href="https://apps.apple.com/us/app/presence-mindful-daily-life/id6760441565" aria-label="Download on the App Store">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.49 2.27-1.18 3.08-.74.9-1.98 1.57-2.98 1.45-.12-1.03.43-2.15 1.1-2.9.75-.85 2.05-1.47 3.05-1.5.01.06.01.62.01.87zM20.5 17.2c-.44 1.02-.65 1.47-1.22 2.37-.8 1.26-1.92 2.84-3.32 2.85-1.24.01-1.56-.81-3.24-.8-1.68.01-2.03.82-3.27.81-1.4-.01-2.46-1.42-3.26-2.68-2.24-3.52-2.47-7.65-1.09-9.85.98-1.57 2.53-2.49 3.98-2.49 1.48 0 2.41.81 3.63.81 1.18 0 1.9-.81 3.61-.81 1.29 0 2.66.7 3.64 1.91-3.2 1.75-2.68 6.32.81 7.68z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.49 2.27-1.18 3.08-.74.9-1.98 1.57-2.98 1.45-.12-1.03.43-2.15 1.1-2.9.75-.85 2.05-1.47 3.05-1.5.01.06.01.62.01.87zM20.5 17.2c-.44 1.02-.65 1.47-1.22 2.37-.8 1.26-1.92 2.84-3.32 2.85-1.24.01-1.56-.81-3.24-.8-1.68.01-2.03.82-3.27.81-1.4-.01-2.46-1.42-3.26-2.68-2.24-3.52-2.47-7.65-1.09-9.85.98-1.57 2.53-2.49 3.98-2.49 1.48 0 2.41.81 3.63.81 1.18 0 1.9-.81 3.61-.81 1.29 0 2.66.7 3.64 1.91-3.2 1.75-2.68 6.32.81 7.68z"/></svg>
             <span class="badge-txt"><small>Download on the</small><span>App Store</span></span>
           </a>
           <a class="badge" href="https://play.google.com/store/apps/details?id=life.dailypresence.presence&hl=en_US" aria-label="Get it on Google Play">
-            <svg width="20" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M3.6 2.3c-.3.2-.5.6-.5 1.1v17.2c0 .5.2.9.5 1.1l9.3-9.7L3.6 2.3z"/><path fill="#fff" d="M16.5 8.6l-3.4-2-2.4 2.5 2.7 2.8 3.1-1.8c.7-.4.7-1.1 0-1.5z" opacity=".9"/><path fill="#fff" d="M3.6 2.3l9.7 9.7-2.4-2.5L3.6 2.3zm0 19.4l9.3-9.7-2.4 2.5-6.9 7.2z" opacity=".55"/></svg>
+            <svg width="18" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M3.6 2.3c-.3.2-.5.6-.5 1.1v17.2c0 .5.2.9.5 1.1l9.3-9.7L3.6 2.3z"/><path fill="#fff" d="M16.5 8.6l-3.4-2-2.4 2.5 2.7 2.8 3.1-1.8c.7-.4.7-1.1 0-1.5z" opacity=".9"/><path fill="#fff" d="M3.6 2.3l9.7 9.7-2.4-2.5L3.6 2.3zm0 19.4l9.3-9.7-2.4 2.5-6.9 7.2z" opacity=".55"/></svg>
             <span class="badge-txt"><small>Get it on</small><span>Google Play</span></span>
           </a>
         </div>
@@ -343,10 +386,8 @@
 
 <footer>
   <p class="disclaimer">
-    This practice is educational and is not therapy, nor a substitute for
-    individual care. If you're in crisis, call or text <strong>988</strong> in the
-    US to reach the Suicide &amp; Crisis Lifeline, or contact your local emergency
-    services.
+    Educational content, not therapy and not a substitute for individual care.
+    In crisis, call or text <strong>988</strong> in the US, or your local emergency services.
   </p>
   <div class="footlinks">
     <a href="/">Presence</a>
@@ -357,18 +398,13 @@
 </footer>
 
 <script>
-  /* ── Kit (ConvertKit) signup ──
-     Paste the form action URL from Kit's HTML embed here. It looks like:
-     https://app.kit.com/forms/1234567/subscriptions
-     Until it's filled in, the form explains itself instead of silently failing. */
+  /* ── Kit signup ── both forms share this; whichever the visitor uses. */
   var KIT_FORM_ACTION = 'https://app.kit.com/forms/9817844/subscriptions';
 
-  (function () {
-    var form = document.getElementById('signup');
-    var note = document.getElementById('formnote');
+  document.querySelectorAll('form.signup').forEach(function (form) {
+    var note = form.parentNode.querySelector('.formnote');
     var button = form.querySelector('button');
     var sending = false;
-
     form.action = KIT_FORM_ACTION;
 
     function say(msg) { note.textContent = msg; note.hidden = false; }
@@ -383,10 +419,9 @@
       }
       if (sending) { e.preventDefault(); return; }
 
-      /* Post in the background so the reader stays on the page instead of being
-         thrown to Kit's own confirmation screen. If the request can't complete
-         (offline, CORS, an ad blocker), fall through to the plain form submit —
-         that always works, it just navigates away. */
+      /* Post in the background so the reader stays with the practice instead of
+         being thrown to Kit's own screen. If the request can't complete — offline,
+         an ad blocker — fall through to the plain submit, which always works. */
       e.preventDefault();
       sending = true;
       button.disabled = true;
@@ -401,17 +436,17 @@
           if (!r.ok) { throw new Error('http ' + r.status); }
           form.reset();
           button.textContent = 'Check your email';
-          say('Almost there — open the confirmation email and click the link. The practice arrives right after.');
+          say('Almost there — open the confirmation email and click the link.');
         })
         .catch(function () {
           sending = false;
-          form.submit();          // native post; leaves the page but still works
+          form.submit();
         });
     });
-  })();
+  });
 
   /* ── In-app browser handling ──
-     TikTok's webview can't hand off to the App Store. Android can escape via an
+     TikTok's webview can't hand off to the App Store. Android escapes via an
      intent:// URL; iOS can't, so it gets the banner. Instagram and YouTube hand
      off correctly already and must not match here. */
   (function () {
