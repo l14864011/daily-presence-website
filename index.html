@@ -546,6 +546,17 @@
     }
     @media (max-width: 560px) {
       .nav-link { display: none; }
+      /* Phones: the hero already carries both store buttons, so the nav slot
+         is more useful pointing at Our Story than repeating Download. */
+      .nav-cta { display: none; }
+      .nav-link.nav-story {
+        display: inline-flex; align-items: center;
+        font-size: 13.5px; font-weight: 500;
+        padding: 9px 18px; border-radius: 100px;
+        background: var(--green); color: #fff;
+        box-shadow: 0 6px 20px rgba(58,85,50,0.28);
+      }
+      nav.scrolled .nav-link.nav-story { color: #fff; }
       footer { padding: 32px 16px; }
       .foot-links { gap: 8px; }
       .foot-link { font-size: 12.5px; }
@@ -573,7 +584,7 @@
   <a class="logo" href="/"><img src="assets/logo-mark.png" alt="Presence logo"><span>Presence</span></a>
   <div class="nav-right">
     <a class="nav-link" href="#how">How it works</a>
-    <a class="nav-link" href="xiuling/index.html">Our Story</a>
+    <a class="nav-link nav-story" href="xiuling/index.html">Our Story</a>
     <a class="nav-cta" href="#download">
       <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg>Download
     </a>
