@@ -254,6 +254,9 @@
             object-fit: cover; object-position: top center;
             display: block;
         }
+        /* The lotus bloom sits mid-frame, so centre the crop instead of
+           anchoring to the top the way the portraits do. */
+        #mbsr .split-photo img { object-position: center; }
         .split-content {
             background: var(--sage);
             padding: 80px 64px;
@@ -473,7 +476,7 @@
         /* ─── RESPONSIVE ──────────────────────────────────────── */
         @media (max-width: 860px) {
             .split { grid-template-columns: 1fr; min-height: auto; }
-            .split-photo { min-height: 50vw; max-height: 480px; }
+            .split-photo { aspect-ratio: 1 / 1; min-height: 0; max-height: none; }
             .split-image-right .split-photo { order: -1; }
             .split-image-right .split-content { order: 0; }
             .split-content, .split-content.right-content { padding: 52px 28px; }
@@ -528,7 +531,7 @@
 <!-- ─── MY STORY ─────────────────────────────────────────────────── -->
 <div class="split fade-in" id="about">
     <div class="split-photo">
-        <img src="assets/profile.jpeg" alt="Xiuling Liu">
+        <img src="assets/profile.jpg" alt="Xiuling Liu">
     </div>
     <div class="split-content right-content">
         <p class="split-tag">Psychotherapist &nbsp;·&nbsp; Mindfulness Teacher &nbsp;·&nbsp; Chicago, IL</p>

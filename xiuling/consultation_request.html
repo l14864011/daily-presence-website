@@ -221,7 +221,7 @@
         /* ─── RESPONSIVE ──────────────────────────────────────── */
         @media (max-width: 860px) {
             .consult-wrap { grid-template-columns: 1fr; }
-            .consult-photo { min-height: 50vw; max-height: 420px; }
+            .consult-photo { aspect-ratio: 1 / 1; min-height: 0; max-height: none; }
             .consult-panel { padding: 52px 28px; }
             footer { padding: 40px 24px 28px; }
             .footer-cols { grid-template-columns: 1fr; gap: 28px; }
@@ -232,7 +232,7 @@
 
 <div class="consult-wrap">
     <div class="consult-photo">
-        <img src="assets/profile.jpeg" alt="Xiuling Liu">
+        <img src="assets/profile.jpg" alt="Xiuling Liu">
     </div>
     <div class="consult-panel">
         <p class="form-title">Consult Inquiry Form</p>
