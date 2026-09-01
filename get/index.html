@@ -60,12 +60,18 @@
     // instead of bouncing them through here a second time.
     if (!isIOS && !isAndroid) { location.replace(HOME_TAGGED); return; }
 
-    // iOS inside TikTok is a known dead end: Apple 301s its store URL to
-    // itms-appss://, TikTok's web view cannot follow that, and the attempt
-    // tears down the document before the body exists — leaving a blank page
-    // under an "Action can't be completed" toast, with no way back. Confirmed
-    // on device. So don't attempt it; show the way out straight away instead.
-    var attempt = !(isIOS && isTikTok);
+    // TikTok's web view is a dead end on both platforms, for two different
+    // reasons, both confirmed on device:
+    //   iOS     — Apple 301s its store URL to itms-appss://, which the web
+    //             view cannot follow. The attempt tears the document down and
+    //             leaves a blank page under "Action can't be completed".
+    //   Android — the hand-off "succeeds" into the Play Store *website* inside
+    //             the web view, which demands a sign-in before it will install
+    //             anything. The Play Store app already sitting on the phone is
+    //             signed in; the web view knows nothing about it.
+    // Either way the answer is the same: don't attempt it, send them out to a
+    // real browser, where the store opens natively and already knows them.
+    var attempt = !isTikTok;
 
     // Handed to a script at the end of <body>. Navigating from there rather
     // than from here means the fallback markup is already parsed, so a failed
@@ -357,7 +363,7 @@
     }
 
     if (!window.__presenceTarget) {
-      // iOS inside TikTok: never attempted, instructions are already up.
+      // TikTok, either platform: never attempted, instructions are already up.
       reportStalled('not_attempted');
     } else if (link.platform === 'ios' || link.platform === 'android') {
       // Armed by the hand-off itself, not by page load, so a hand-off that
