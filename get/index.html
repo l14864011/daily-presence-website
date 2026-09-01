@@ -185,7 +185,13 @@
     .redirecting h1, .redirecting .sub { display: none; }
     .redirecting .badges { margin-top: 30px; opacity: .85; }
     .redirecting .badge.other { display: none; }
-    .opening-text.home { display: none; }
+    .opening-text.home, .opening-text.stalled-msg { display: none; }
+    /* Hand-off didn't take (some in-app browsers swallow it) — ask for a tap,
+       which those browsers do honour. */
+    .stalled .opening-text.store    { display: none; }
+    .stalled .opening-text.stalled-msg { display: block; }
+    .stalled .dots { visibility: hidden; }
+    .stalled .badges { opacity: 1; }
     .to-home .opening-text.store { display: none; }
     .to-home .opening-text.home  { display: block; }
     /* Heading to the homepage: the badges there are the point, not here. */
@@ -208,7 +214,8 @@
     <div class="opening">
       <p class="opening-text store">Opening your app store</p>
       <p class="opening-text home">Taking you to dailypresence.life</p>
-      <p><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>
+      <p class="opening-text stalled-msg">Tap below to continue</p>
+      <p class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>
     </div>
 
     <h1>Be here,<br>right now.</h1>
@@ -243,6 +250,18 @@
     // On a phone, the badge for the *other* platform is noise — hide it.
     if (link.platform === 'ios')     btnAndroid.classList.add('other');
     if (link.platform === 'android') btnIos.classList.add('other');
+
+    // TikTok's in-app browser (and others like it) sometimes swallow a
+    // scripted hand-off to the store, leaving the visitor on a page that
+    // says "Opening…" forever. If the store had opened we'd be backgrounded
+    // and hidden; still visible means it didn't take, so ask for a tap —
+    // which those browsers do honour.
+    if (link.platform === 'ios' || link.platform === 'android') {
+      setTimeout(function () {
+        if (document.hidden) return;
+        document.documentElement.classList.add('stalled');
+      }, 2500);
+    }
   })();
   </script>
 
