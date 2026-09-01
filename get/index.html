@@ -54,16 +54,26 @@
       source: source
     };
 
-    document.documentElement.className = 'redirecting' +
-      (isIOS || isAndroid ? '' : ' to-home') + (isTikTok ? ' tiktok' : '');
+    // Desktop is a plain https navigation that cannot fail the way a store
+    // hand-off can, so it leaves from here, immediately.
+    // replace(), not assign(), so Back returns to the feed they came from
+    // instead of bouncing them through here a second time.
+    if (!isIOS && !isAndroid) { location.replace(HOME_TAGGED); return; }
 
-    function go() {
-      // replace(), not assign(), so Back returns to the feed they came from
-      // instead of bouncing them through here a second time.
-      location.replace(target);
-    }
+    // iOS inside TikTok is a known dead end: Apple 301s its store URL to
+    // itms-appss://, TikTok's web view cannot follow that, and the attempt
+    // tears down the document before the body exists — leaving a blank page
+    // under an "Action can't be completed" toast, with no way back. Confirmed
+    // on device. So don't attempt it; show the way out straight away instead.
+    var attempt = !(isIOS && isTikTok);
 
-    go();
+    // Handed to a script at the end of <body>. Navigating from there rather
+    // than from here means the fallback markup is already parsed, so a failed
+    // hand-off leaves the visitor looking at a page instead of a blank one.
+    window.__presenceTarget = attempt ? target : null;
+
+    document.documentElement.className =
+      'redirecting' + (isTikTok ? ' tiktok' : '') + (attempt ? '' : ' stalled');
   })();
   </script>
 
@@ -92,7 +102,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Not render-blocking: first paint is what releases the store hand-off,
+       so the web fonts arrive after it rather than holding it up. -->
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap">
+  <noscript><link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap"></noscript>
 
   <style>
     :root {
@@ -265,6 +280,17 @@
   </main>
 
   <script>
+  // The hand-off, issued only once the markup above is parsed and painted.
+  // One frame of delay buys the guarantee that a failed attempt leaves a
+  // readable page behind rather than a blank document.
+  (function () {
+    var t = window.__presenceTarget;
+    if (!t) return;
+    requestAnimationFrame(function () { location.replace(t); });
+  })();
+  </script>
+
+  <script>
   (function () {
     var link = window.__presenceLink;
     var btnIos = document.getElementById('btn-ios');
@@ -280,34 +306,36 @@
     if (link.platform === 'ios')     btnAndroid.classList.add('other');
     if (link.platform === 'android') btnIos.classList.add('other');
 
-    // TikTok's in-app browser (and others like it) sometimes swallow a
-    // scripted hand-off to the store, leaving the visitor on a page that
-    // says "Opening…" forever. If the store had opened we'd be backgrounded
-    // and hidden; still visible means it didn't take, so ask for a tap —
-    // which those browsers do honour.
-    if (link.platform === 'ios' || link.platform === 'android') {
-      // TikTok blocks this hand-off often enough that waiting the full
-      // 2.5s just to tell them so is time taken from someone already stuck.
-      var fuse = link.tiktok ? 1200 : 2500;
-      setTimeout(function () {
-        if (document.hidden) return;   // store opened, we got backgrounded
-        document.documentElement.classList.add('stalled');
+    function reportStalled(why) {
+      document.documentElement.classList.add('stalled');
+      // Only now is analytics worth loading. Everyone else has already left,
+      // and a jammed hand-off is the one thing here worth being told about.
+      var g = document.createElement('script');
+      g.async = true;
+      g.src = 'https://www.googletagmanager.com/gtag/js?id=G-WSGQ24JQ9S';
+      document.head.appendChild(g);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-WSGQ24JQ9S');
+      gtag('event', 'store_handoff_stalled', {
+        platform: link.platform, link_source: link.source,
+        in_app_browser: link.tiktok ? 'tiktok' : 'other', reason: why
+      });
+    }
 
-        // Only now is analytics worth loading. Everyone else has already left,
-        // and a stalled hand-off is the one thing here worth being told about.
-        var g = document.createElement('script');
-        g.async = true;
-        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-WSGQ24JQ9S';
-        document.head.appendChild(g);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-WSGQ24JQ9S');
-        gtag('event', 'store_handoff_stalled', {
-          platform: link.platform, link_source: link.source,
-          in_app_browser: link.tiktok ? 'tiktok' : 'other'
-        });
-      }, fuse);
+    if (!window.__presenceTarget) {
+      // iOS inside TikTok: never attempted, instructions are already up.
+      reportStalled('not_attempted');
+    } else if (link.platform === 'ios' || link.platform === 'android') {
+      // The hand-off was attempted. If it had worked we'd be backgrounded and
+      // hidden by now; still being visible means an in-app browser swallowed
+      // it, so show the way out. TikTok gets a shorter fuse because the
+      // failure is expected there.
+      setTimeout(function () {
+        if (document.hidden) return;
+        reportStalled('swallowed');
+      }, link.tiktok ? 1200 : 2500);
     }
   })();
   </script>
