@@ -34,6 +34,7 @@
   (function () {
     var IOS_URL = 'https://apps.apple.com/us/app/presence-mindful-daily-life/id6760441565';
     var PLAY_ID = 'life.dailypresence.presence';
+    var HOME_URL = 'https://dailypresence.life/';
 
     var qs = new URLSearchParams(location.search);
     // ?s=ig, ?s=fb, ?s=reels … whatever she tags the link with when posting.
@@ -52,7 +53,16 @@
     var PLAY_URL = 'https://play.google.com/store/apps/details?id=' + PLAY_ID +
                    '&referrer=' + referrer;
 
-    var target = isIOS ? IOS_URL : (isAndroid ? PLAY_URL : null);
+    // Desktop has no store app to hand off to, so it just goes to the
+    // homepage — which carries both badges anyway. utm tags ride along so
+    // those visits are still separable in GA.
+    var HOME_TAGGED = HOME_URL + '?utm_source=' + encodeURIComponent(source) +
+                      '&utm_medium=social&utm_campaign=smart_link';
+
+    var target, delay;
+    if (isIOS)          { target = IOS_URL;     delay = 600; }
+    else if (isAndroid) { target = PLAY_URL;    delay = 600; }
+    else                { target = HOME_TAGGED; delay = 0;   }
 
     window.__presenceLink = {
       ios: IOS_URL, play: PLAY_URL,
@@ -60,9 +70,8 @@
       source: source
     };
 
-    if (!target) return; // Desktop: no redirect, show the choice.
-
-    document.documentElement.className = 'redirecting';
+    document.documentElement.className =
+      'redirecting' + (isIOS || isAndroid ? '' : ' to-home');
 
     function go() {
       // replace(), not assign(), so Back returns to the feed they came from
@@ -70,9 +79,10 @@
       location.replace(target);
     }
 
-    // A short beat so the analytics beacon gets away and the "Opening…"
-    // line is readable rather than a flash.
-    setTimeout(go, 600);
+    // On a phone, a short beat so the analytics beacon gets away and the
+    // "Opening…" line reads as intentional rather than a flash. Desktop has
+    // nothing to wait for, so it leaves straight away.
+    if (delay) setTimeout(go, delay); else go();
   })();
   </script>
 
@@ -175,6 +185,11 @@
     .redirecting h1, .redirecting .sub { display: none; }
     .redirecting .badges { margin-top: 30px; opacity: .85; }
     .redirecting .badge.other { display: none; }
+    .opening-text.home { display: none; }
+    .to-home .opening-text.store { display: none; }
+    .to-home .opening-text.home  { display: block; }
+    /* Heading to the homepage: the badges there are the point, not here. */
+    .to-home .badges, .to-home .note { display: none; }
 
     @media (min-width: 520px) {
       .badges { flex-direction: row; justify-content: center; }
@@ -191,7 +206,8 @@
     </a>
 
     <div class="opening">
-      <p class="opening-text">Opening your app store</p>
+      <p class="opening-text store">Opening your app store</p>
+      <p class="opening-text home">Taking you to dailypresence.life</p>
       <p><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>
     </div>
 
@@ -215,14 +231,18 @@
   <script>
   (function () {
     var link = window.__presenceLink;
+    var btnIos = document.getElementById('btn-ios');
+    var btnAndroid = document.getElementById('btn-android');
+    // Desktop leaves during head parsing, so these may never be reached.
+    if (!link || !btnIos || !btnAndroid) return;
 
     // Carry the campaign referrer onto the visible Play button too, so a manual
     // tap is attributed the same way the automatic redirect would have been.
-    document.getElementById('btn-android').href = link.play;
+    btnAndroid.href = link.play;
 
     // On a phone, the badge for the *other* platform is noise — hide it.
-    if (link.platform === 'ios')     document.getElementById('btn-android').classList.add('other');
-    if (link.platform === 'android') document.getElementById('btn-ios').classList.add('other');
+    if (link.platform === 'ios')     btnAndroid.classList.add('other');
+    if (link.platform === 'android') btnIos.classList.add('other');
   })();
   </script>
 
