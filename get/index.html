@@ -281,7 +281,41 @@
   (function () {
     var t = window.__presenceTarget;
     if (!t) return;
-    requestAnimationFrame(function () { location.replace(t); });
+
+    var attemptedAt = 0, retried = false;
+
+    function handOff() {
+      attemptedAt = Date.now();
+      if (typeof window.__presenceAfterAttempt === 'function') {
+        window.__presenceAfterAttempt();
+      }
+      location.replace(t);
+    }
+
+    function start() {
+      // A browser opening from cold can reach this line while it is still
+      // coming to the foreground. iOS opens the store, then the launch
+      // finishes and takes the screen straight back. Only hand off once this
+      // page is genuinely the thing on screen.
+      if (document.visibilityState !== 'visible') {
+        document.addEventListener('visibilitychange', start, { once: true });
+        return;
+      }
+      requestAnimationFrame(handOff);
+    }
+
+    // A successful hand-off hides us. Coming back within a breath of it means
+    // the store was pulled away rather than dismissed, so try once more, by
+    // which point the browser has settled. Coming back later is the visitor
+    // returning under their own steam, and they get left alone.
+    document.addEventListener('visibilitychange', function () {
+      if (retried || document.visibilityState !== 'visible') return;
+      if (!attemptedAt || Date.now() - attemptedAt > 2000) return;
+      retried = true;
+      handOff();
+    });
+
+    start();
   })();
   </script>
 
@@ -301,7 +335,10 @@
     if (link.platform === 'ios')     btnAndroid.classList.add('other');
     if (link.platform === 'android') btnIos.classList.add('other');
 
+    var reported = false;
     function reportStalled(why) {
+      if (reported) return;
+      reported = true;
       document.documentElement.classList.add('stalled');
       // Only now is analytics worth loading. Everyone else has already left,
       // and a jammed hand-off is the one thing here worth being told about.
@@ -323,14 +360,16 @@
       // iOS inside TikTok: never attempted, instructions are already up.
       reportStalled('not_attempted');
     } else if (link.platform === 'ios' || link.platform === 'android') {
-      // The hand-off was attempted. If it had worked we'd be backgrounded and
-      // hidden by now; still being visible means an in-app browser swallowed
-      // it, so show the way out. TikTok gets a shorter fuse because the
-      // failure is expected there.
-      setTimeout(function () {
-        if (document.hidden) return;
-        reportStalled('swallowed');
-      }, link.tiktok ? 1200 : 2500);
+      // Armed by the hand-off itself, not by page load, so a hand-off that
+      // waited for the page to become visible isn't declared stuck early.
+      // If it had worked we'd be backgrounded and hidden by now; still being
+      // visible means an in-app browser swallowed it, so show the way out.
+      window.__presenceAfterAttempt = function () {
+        setTimeout(function () {
+          if (document.hidden) return;
+          reportStalled('swallowed');
+        }, link.tiktok ? 1200 : 2500);
+      };
     }
   })();
   </script>
