@@ -4,31 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Get Presence</title>
-  <meta name="description" content="Download Presence — short, personalized mindfulness for the moment you're in.">
-  <link rel="canonical" href="https://dailypresence.life/get/">
-  <link rel="icon" type="image/png" href="../favicon.png">
-  <meta name="theme-color" content="#3A5532">
-  <!-- A link for social bios, not a search result. -->
-  <meta name="robots" content="noindex, follow">
-
-  <!-- Link preview when the URL is pasted into Facebook or Instagram -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Presence">
-  <meta property="og:title" content="Presence — Be here, right now.">
-  <meta property="og:description" content="Short, personalized mindfulness practice for the moment you're in.">
-  <meta property="og:url" content="https://dailypresence.life/get/">
-  <meta property="og:image" content="https://dailypresence.life/assets/moment-coffee.jpg">
-  <meta property="og:image:alt" content="Presence — a mindful guide for the moment you're in">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Presence — Be here, right now.">
-  <meta name="twitter:description" content="Short, personalized mindfulness practice for the moment you're in.">
-  <meta name="twitter:image" content="https://dailypresence.life/assets/moment-coffee.jpg">
+  <!-- Warm the store connection while the router below decides. -->
+  <link rel="preconnect" href="https://apps.apple.com" crossorigin>
+  <link rel="preconnect" href="https://play.google.com" crossorigin>
 
   <!--
-    Store routing. Runs before anything else paints so the trip through this
-    page is as short as it can be. Desktop gets no redirect — it stays and
-    shows both badges.
+    Store routing. First thing in the document, before the title, the preview
+    tags, the fonts or the stylesheet, so the hand-off is issued the instant
+    the HTML lands rather than after the rest of the page is discovered.
+    Nothing here waits on anything.
   -->
   <script>
   (function () {
@@ -59,10 +43,7 @@
     var HOME_TAGGED = HOME_URL + '?utm_source=' + encodeURIComponent(source) +
                       '&utm_medium=social&utm_campaign=smart_link';
 
-    var target, delay;
-    if (isIOS)          { target = IOS_URL;     delay = 600; }
-    else if (isAndroid) { target = PLAY_URL;    delay = 600; }
-    else                { target = HOME_TAGGED; delay = 0;   }
+    var target = isIOS ? IOS_URL : (isAndroid ? PLAY_URL : HOME_TAGGED);
 
     window.__presenceLink = {
       ios: IOS_URL, play: PLAY_URL,
@@ -79,24 +60,32 @@
       location.replace(target);
     }
 
-    // On a phone, a short beat so the analytics beacon gets away and the
-    // "Opening…" line reads as intentional rather than a flash. Desktop has
-    // nothing to wait for, so it leaves straight away.
-    if (delay) setTimeout(go, delay); else go();
+    go();
   })();
   </script>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSGQ24JQ9S"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-WSGQ24JQ9S');
-    gtag('event', 'store_redirect', {
-      platform: window.__presenceLink.platform,
-      link_source: window.__presenceLink.source
-    });
-  </script>
+  <title>Get Presence</title>
+  <meta name="description" content="Download Presence — short, personalized mindfulness for the moment you're in.">
+  <link rel="canonical" href="https://dailypresence.life/get/">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <meta name="theme-color" content="#3A5532">
+  <!-- A link for social bios, not a search result. -->
+  <meta name="robots" content="noindex, follow">
+
+  <!-- Link preview when the URL is pasted into Facebook or Instagram -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Presence">
+  <meta property="og:title" content="Presence — Be here, right now.">
+  <meta property="og:description" content="Short, personalized mindfulness practice for the moment you're in.">
+  <meta property="og:url" content="https://dailypresence.life/get/">
+  <meta property="og:image" content="https://dailypresence.life/assets/moment-coffee.jpg">
+  <meta property="og:image:alt" content="Presence — a mindful guide for the moment you're in">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Presence — Be here, right now.">
+  <meta name="twitter:description" content="Short, personalized mindfulness practice for the moment you're in.">
+  <meta name="twitter:image" content="https://dailypresence.life/assets/moment-coffee.jpg">
+
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -258,8 +247,22 @@
     // which those browsers do honour.
     if (link.platform === 'ios' || link.platform === 'android') {
       setTimeout(function () {
-        if (document.hidden) return;
+        if (document.hidden) return;   // store opened, we got backgrounded
         document.documentElement.classList.add('stalled');
+
+        // Only now is analytics worth loading. Everyone else has already left,
+        // and a stalled hand-off is the one thing here worth being told about.
+        var g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-WSGQ24JQ9S';
+        document.head.appendChild(g);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-WSGQ24JQ9S');
+        gtag('event', 'store_handoff_stalled', {
+          platform: link.platform, link_source: link.source
+        });
       }, 2500);
     }
   })();
