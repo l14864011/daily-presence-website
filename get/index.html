@@ -29,6 +29,8 @@
                 // iPadOS 13+ reports itself as a Mac, but a Mac has no touch.
                 (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
     var isAndroid = /Android/i.test(ua);
+    // TikTok's web view, across its various app names (TikTok, Trill, Aweme).
+    var isTikTok = /BytedanceWebview|musical_ly|trill|aweme|TikTok/i.test(ua);
 
     // Play Console reads this back as the install source under Acquisition.
     var referrer = encodeURIComponent(
@@ -48,11 +50,12 @@
     window.__presenceLink = {
       ios: IOS_URL, play: PLAY_URL,
       platform: isIOS ? 'ios' : (isAndroid ? 'android' : 'desktop'),
+      tiktok: isTikTok,
       source: source
     };
 
-    document.documentElement.className =
-      'redirecting' + (isIOS || isAndroid ? '' : ' to-home');
+    document.documentElement.className = 'redirecting' +
+      (isIOS || isAndroid ? '' : ' to-home') + (isTikTok ? ' tiktok' : '');
 
     function go() {
       // replace(), not assign(), so Back returns to the feed they came from
@@ -179,6 +182,36 @@
        which those browsers do honour. */
     .stalled .opening-text.store    { display: none; }
     .stalled .opening-text.stalled-msg { display: block; }
+    /* TikTok gets the way out instead of a button that won't fire. */
+    .tt-help { display: none; }
+    .stalled.tiktok .tt-help { display: block; }
+    .stalled.tiktok .opening-text.stalled-msg { display: none; }
+    .tt-lead {
+      font-size: 16px; font-weight: 300; line-height: 1.7;
+      color: var(--muted); margin: 0 0 18px;
+    }
+    .tt-steps {
+      font-size: 17px; font-weight: 400; line-height: 1.85;
+      color: var(--text); margin: 0;
+    }
+    .tt-steps strong { font-weight: 600; color: var(--green); }
+    /* On TikTok the filled button is the move that just failed, so it stops
+       being the loudest thing on screen. It stays as a second chance. */
+    .stalled.tiktok .badge {
+      background: transparent; color: var(--green);
+      border: 1px solid rgba(58,85,50,0.28); box-shadow: none;
+      margin-top: 4px;
+    }
+    .stalled.tiktok .badge svg path { fill: var(--green); }
+    .stalled.tiktok .badge-txt small { opacity: 0.7; }
+    .stalled.tiktok .badge-txt strong { font-size: 16px; font-weight: 500; }
+    .stalled.tiktok .badges { margin-top: 26px; }
+    .tt-dots {
+      display: inline-block; padding: 1px 9px 4px; margin: 0 1px;
+      border: 1px solid rgba(58,85,50,0.35); border-radius: 7px;
+      font-weight: 600; color: var(--green); line-height: 1;
+      vertical-align: baseline;
+    }
     .stalled .dots { visibility: hidden; }
     .stalled .badges { opacity: 1; }
     .to-home .opening-text.store { display: none; }
@@ -204,6 +237,13 @@
       <p class="opening-text store">Opening your app store</p>
       <p class="opening-text home">Taking you to dailypresence.life</p>
       <p class="opening-text stalled-msg">Tap below to continue</p>
+      <div class="tt-help">
+        <p class="tt-lead">TikTok won't open the app store from here.</p>
+        <p class="tt-steps">
+          Tap <span class="tt-dots">···</span> at the top right,<br>
+          then choose <strong>Open in browser</strong>
+        </p>
+      </div>
       <p class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>
     </div>
 
@@ -246,6 +286,9 @@
     // and hidden; still visible means it didn't take, so ask for a tap —
     // which those browsers do honour.
     if (link.platform === 'ios' || link.platform === 'android') {
+      // TikTok blocks this hand-off often enough that waiting the full
+      // 2.5s just to tell them so is time taken from someone already stuck.
+      var fuse = link.tiktok ? 1200 : 2500;
       setTimeout(function () {
         if (document.hidden) return;   // store opened, we got backgrounded
         document.documentElement.classList.add('stalled');
@@ -261,9 +304,10 @@
         gtag('js', new Date());
         gtag('config', 'G-WSGQ24JQ9S');
         gtag('event', 'store_handoff_stalled', {
-          platform: link.platform, link_source: link.source
+          platform: link.platform, link_source: link.source,
+          in_app_browser: link.tiktok ? 'tiktok' : 'other'
         });
-      }, 2500);
+      }, fuse);
     }
   })();
   </script>
